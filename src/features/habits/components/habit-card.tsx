@@ -23,10 +23,10 @@ interface HabitCardProps {
 export function HabitCard({ habit, onArchive, onEdit }: HabitCardProps) {
   return (
     <Card className="transition-colors hover:bg-muted/30" size="sm">
-      <CardHeader className="grid grid-cols-[auto_1fr_auto] items-center gap-4">
+      <CardHeader className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 sm:gap-4">
         <button
           aria-label={`Edit ${habit.title}`}
-          className="flex size-12 items-center justify-center rounded-2xl"
+          className="flex size-11 items-center justify-center rounded-xl sm:size-12 sm:rounded-2xl"
           onClick={() => onEdit(habit)}
           style={{ backgroundColor: `${habit.color}20`, color: habit.color }}
           type="button"
@@ -35,7 +35,7 @@ export function HabitCard({ habit, onArchive, onEdit }: HabitCardProps) {
         </button>
         <button className="min-w-0 text-left" onClick={() => onEdit(habit)} type="button">
           <CardTitle className="truncate">{habit.title}</CardTitle>
-          <div className="mt-1.5 flex flex-wrap items-center gap-2">
+          <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1">
             <span className="text-xs text-muted-foreground">{habit.category}</span>
             <Badge variant="secondary">{habit.difficulty}</Badge>
             <span className="flex items-center gap-1 text-xs font-medium text-primary">
@@ -46,7 +46,7 @@ export function HabitCard({ habit, onArchive, onEdit }: HabitCardProps) {
         <CardAction>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button aria-label={`Actions for ${habit.title}`} size="icon-sm" variant="ghost">
+              <Button aria-label={`Actions for ${habit.title}`} size="icon" variant="ghost">
                 <MoreHorizontal />
               </Button>
             </DropdownMenuTrigger>

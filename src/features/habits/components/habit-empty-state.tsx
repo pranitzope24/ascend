@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button"
 
 export function HabitEmptyState({ onCreate }: { onCreate: () => void }) {
   return (
-    <div className="flex min-h-96 flex-col items-center justify-center rounded-3xl border border-dashed bg-muted/20 px-6 text-center">
-      <div className="mb-5 flex size-20 items-center justify-center rounded-full bg-primary/10 text-primary">
-        <Mountain className="size-10" />
+    <div className="flex min-h-[min(24rem,60dvh)] flex-col items-center justify-center rounded-2xl border border-dashed bg-muted/20 px-4 py-10 text-center sm:rounded-3xl sm:px-6">
+      <div className="mb-5 flex size-16 items-center justify-center rounded-full bg-primary/10 text-primary sm:size-20">
+        <Mountain className="size-8 sm:size-10" />
       </div>
       <h2 className="text-xl font-semibold">Your next climb starts here</h2>
       <p className="mt-2 max-w-sm text-sm text-muted-foreground">

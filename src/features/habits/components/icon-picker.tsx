@@ -32,7 +32,7 @@ export function IconPicker({ value, onChange }: IconPickerProps) {
           value={query}
         />
       </div>
-      <div className="grid max-h-32 grid-cols-8 gap-1 overflow-y-auto rounded-2xl border p-2">
+      <div className="grid max-h-36 grid-cols-6 place-items-center gap-1 overflow-y-auto rounded-2xl border p-2 sm:grid-cols-8">
         {icons.map((name) => (
           <Button
             aria-label={`Use ${name} icon`}
@@ -40,7 +40,7 @@ export function IconPicker({ value, onChange }: IconPickerProps) {
             className={cn(name === value && "bg-primary text-primary-foreground hover:bg-primary/90")}
             key={name}
             onClick={() => onChange(name)}
-            size="icon-sm"
+            size="icon-lg"
             type="button"
             variant="ghost"
           >

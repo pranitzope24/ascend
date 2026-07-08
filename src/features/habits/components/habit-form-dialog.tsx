@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
 
 import { Button } from "@/components/ui/button"
+import { ResponsiveDialog } from "@/components/shared/responsive-dialog"
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import {
@@ -14,14 +15,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetFooter,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet"
 import { Textarea } from "@/components/ui/textarea"
 import { IconPicker } from "@/features/habits/components/icon-picker"
 import {
@@ -46,13 +39,13 @@ const emptyHabit: HabitSchemaValues = {
   xp: DEFAULT_XP[HabitDifficulty.Easy],
 }
 
-interface HabitFormSheetProps {
+interface HabitFormDialogProps {
   habit: Habit | null
   open: boolean
   onOpenChange: (open: boolean) => void
 }
 
-export function HabitFormSheet({ habit, open, onOpenChange }: HabitFormSheetProps) {
+export function HabitFormDialog({ habit, open, onOpenChange }: HabitFormDialogProps) {
   const createHabit = useHabitStore((state) => state.createHabit)
   const updateHabit = useHabitStore((state) => state.updateHabit)
   const form = useForm<HabitSchemaValues>({
@@ -88,17 +81,23 @@ export function HabitFormSheet({ habit, open, onOpenChange }: HabitFormSheetProp
   }
 
   return (
-    <Sheet onOpenChange={onOpenChange} open={open}>
-      <SheetContent className="w-full overflow-y-auto sm:max-w-lg">
-        <SheetHeader>
-          <SheetTitle>{habit ? "Edit habit" : "Create a habit"}</SheetTitle>
-          <SheetDescription>
-            {habit ? "Update the details of this habit." : "Choose a clear action you want to repeat."}
-          </SheetDescription>
-        </SheetHeader>
-
-        <form className="flex flex-1 flex-col" id="habit-form" onSubmit={form.handleSubmit(onSubmit)}>
-          <FieldGroup className="gap-5 px-6">
+    <ResponsiveDialog
+      className="md:max-w-2xl"
+      description={habit ? "Update the details of this habit." : "Choose a clear action you want to repeat."}
+      footer={
+        <>
+          <Button onClick={() => onOpenChange(false)} type="button" variant="outline">Cancel</Button>
+          <Button disabled={form.formState.isSubmitting} form="habit-form" type="submit">
+            {form.formState.isSubmitting ? "Saving…" : habit ? "Save changes" : "Create habit"}
+          </Button>
+        </>
+      }
+      onOpenChange={onOpenChange}
+      open={open}
+      title={habit ? "Edit habit" : "Create a habit"}
+    >
+        <form id="habit-form" onSubmit={form.handleSubmit(onSubmit)}>
+          <FieldGroup className="gap-5 pb-4 md:pb-0">
             <Controller
               control={form.control}
               name="title"
@@ -225,14 +224,6 @@ export function HabitFormSheet({ habit, open, onOpenChange }: HabitFormSheetProp
             <FieldError errors={[form.formState.errors.root]} />
           </FieldGroup>
         </form>
-
-        <SheetFooter className="border-t">
-          <Button disabled={form.formState.isSubmitting} form="habit-form" type="submit">
-            {form.formState.isSubmitting ? "Saving…" : habit ? "Save changes" : "Create habit"}
-          </Button>
-          <Button onClick={() => onOpenChange(false)} type="button" variant="outline">Cancel</Button>
-        </SheetFooter>
-      </SheetContent>
-    </Sheet>
+    </ResponsiveDialog>
   )
 }
