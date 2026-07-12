@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "db:reset": "prisma migrate reset",
-    "db:seed": "npx tsx prisma/seed.ts"
+    "db:seed": "npx tsx prisma/seed.ts",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@base-ui/react": "^1.6.0",
