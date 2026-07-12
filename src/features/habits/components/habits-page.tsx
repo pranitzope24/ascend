@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Plus } from "lucide-react"
+import { Plus, Settings } from "lucide-react"
 
 import { ModeToggle } from "@/components/ModeToggle"
 import { PageHeader, PageShell } from "@/components/shared/page-shell"
@@ -9,8 +9,11 @@ import { Button } from "@/components/ui/button"
 import { HabitCard } from "@/features/habits/components/habit-card"
 import { HabitEmptyState } from "@/features/habits/components/habit-empty-state"
 import { HabitFormDialog } from "@/features/habits/components/habit-form-dialog"
+import { HabitHeatmapDialog } from "@/features/habits/components/habit-heatmap-dialog"
+import { SettingsDialog } from "@/features/settings/components/settings-dialog"
 import type { Habit } from "@/features/habits/types"
 import { useHabitStore } from "@/store/habit-store"
+import { SidebarTrigger } from "@/components/ui/sidebar"
 
 export function HabitsPage() {
   const habits = useHabitStore((state) => state.habits)
@@ -18,8 +21,12 @@ export function HabitsPage() {
   const error = useHabitStore((state) => state.error)
   const loadHabits = useHabitStore((state) => state.loadHabits)
   const archiveHabit = useHabitStore((state) => state.archiveHabit)
+  const logs = useHabitStore((state) => state.logs)
+  const toggleHabit = useHabitStore((state) => state.toggleHabit)
   const [dialogOpen, setDialogOpen] = useState(false)
+  const [settingsOpen, setSettingsOpen] = useState(false)
   const [selectedHabit, setSelectedHabit] = useState<Habit | null>(null)
+  const [heatmapHabit, setHeatmapHabit] = useState<Habit | null>(null)
 
   useEffect(() => {
     void loadHabits()
@@ -40,15 +47,23 @@ export function HabitsPage() {
       <PageHeader
         actions={
           <>
+          <Button aria-label="Settings" onClick={() => setSettingsOpen(true)} size="icon" variant="ghost">
+            <Settings className="size-5" />
+          </Button>
           <ModeToggle />
           <Button aria-label="Add habit" onClick={openCreate}>
             <Plus data-icon="inline-start" /> <span className="hidden sm:inline">Add habit</span>
           </Button>
           </>
         }
-        description="Build the routines that carry you upward."
+        description="Manage your routines and habits."
+        title={
+          <div className="flex items-center gap-2">
+            <SidebarTrigger className="-ml-1" />
+            <span>Habits</span>
+          </div>
+        }
         eyebrow="Ascend"
-        title="Habits"
       />
 
       {error && (
@@ -64,7 +79,15 @@ export function HabitsPage() {
       ) : habits.length ? (
         <div className="grid gap-3">
           {habits.map((habit) => (
-            <HabitCard habit={habit} key={habit.id} onArchive={(item) => void archiveHabit(item.id)} onEdit={openEdit} />
+            <HabitCard 
+              habit={habit} 
+              key={habit.id} 
+              isCompleted={logs[habit.id]?.completed ?? false}
+              onToggle={(item) => void toggleHabit(item.id)}
+              onArchive={(item) => void archiveHabit(item.id)} 
+              onEdit={openEdit} 
+              onViewHeatmap={setHeatmapHabit}
+            />
           ))}
         </div>
       ) : (
@@ -72,6 +95,8 @@ export function HabitsPage() {
       )}
 
       <HabitFormDialog habit={selectedHabit} onOpenChange={setDialogOpen} open={dialogOpen} />
+      <HabitHeatmapDialog habit={heatmapHabit} open={!!heatmapHabit} onOpenChange={(o) => !o && setHeatmapHabit(null)} />
+      <SettingsDialog onOpenChange={setSettingsOpen} open={settingsOpen} />
     </PageShell>
   )
 }

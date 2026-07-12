@@ -35,6 +35,9 @@ export interface Habit {
   difficulty: HabitDifficulty
   xp: number
   isArchived: boolean
+  currentStreak: number
+  longestStreak: number
+  lastCompletedDate: string | null
   createdAt: Date
   updatedAt: Date
 }

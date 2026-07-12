@@ -1,5 +1,5 @@
-import { HabitsPage } from "@/features/habits/components/habits-page"
+import { DashboardPage } from "@/features/habits/components/dashboard-page"
 
 export default function Home() {
-  return <HabitsPage />
+  return <DashboardPage />
 }

@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Habit {
+  id          String     @id @default(uuid())
+  title       String
+  description String
+  icon        String
+  color       String
+  category    String
+  difficulty  String
+  xp          Int
+  isArchived        Boolean    @default(false)
+  currentStreak     Int        @default(0)
+  longestStreak     Int        @default(0)
+  lastCompletedDate String?
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+  logs              HabitLog[]
+}
+
+model HabitLog {
+  id          String    @id @default(uuid())
+  habitId     String
+  date        String
+  completed   Boolean   @default(false)
+  completedAt DateTime?
+  habit       Habit     @relation(fields: [habitId], references: [id], onDelete: Cascade)
+
+  @@unique([habitId, date])
+}
+
+model Profile {
+  id           String @id @default("current")
+  currentXP    Int    @default(0)
+  currentLevel Int    @default(1)
+  coins        Int    @default(0)
+}
+
+model AppSettings {
+  id            String  @id @default("app")
+  theme         String  @default("system")
+  animations    Boolean @default(true)
+  notifications Boolean @default(false)
+}

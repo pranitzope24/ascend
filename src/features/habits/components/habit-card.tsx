@@ -1,6 +1,6 @@
 "use client"
 
-import { Archive, MoreHorizontal, Pencil, Zap } from "lucide-react"
+import { Archive, Check, Flame, MoreHorizontal, Pencil, Zap } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -18,20 +18,26 @@ interface HabitCardProps {
   habit: Habit
   onArchive: (habit: Habit) => void
   onEdit: (habit: Habit) => void
+  onToggle: (habit: Habit) => void
+  onViewHeatmap?: (habit: Habit) => void
+  isCompleted: boolean
 }
 
-export function HabitCard({ habit, onArchive, onEdit }: HabitCardProps) {
+export function HabitCard({ habit, onArchive, onEdit, onToggle, onViewHeatmap, isCompleted }: HabitCardProps) {
   return (
     <Card className="transition-colors hover:bg-muted/30" size="sm">
       <CardHeader className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 sm:gap-4">
         <button
-          aria-label={`Edit ${habit.title}`}
-          className="flex size-11 items-center justify-center rounded-xl sm:size-12 sm:rounded-2xl"
-          onClick={() => onEdit(habit)}
-          style={{ backgroundColor: `${habit.color}20`, color: habit.color }}
+          aria-label={isCompleted ? `Mark ${habit.title} incomplete` : `Complete ${habit.title}`}
+          className="relative flex size-11 shrink-0 items-center justify-center rounded-xl transition-transform active:scale-95 sm:size-12 sm:rounded-2xl"
+          onClick={() => onToggle(habit)}
+          style={{ 
+            backgroundColor: isCompleted ? habit.color : `${habit.color}20`, 
+            color: isCompleted ? "#fff" : habit.color 
+          }}
           type="button"
         >
-          <HabitIcon name={habit.icon} />
+          {isCompleted ? <Check className="size-6 animate-in zoom-in duration-200" /> : <HabitIcon name={habit.icon} />}
         </button>
         <button className="min-w-0 text-left" onClick={() => onEdit(habit)} type="button">
           <CardTitle className="truncate">{habit.title}</CardTitle>
@@ -40,6 +46,15 @@ export function HabitCard({ habit, onArchive, onEdit }: HabitCardProps) {
             <Badge variant="secondary">{habit.difficulty}</Badge>
             <span className="flex items-center gap-1 text-xs font-medium text-primary">
               <Zap className="size-3.5" /> {habit.xp} XP
+            </span>
+            <span 
+              className="flex items-center gap-1 text-xs font-medium cursor-pointer rounded-full px-1.5 py-0.5 hover:bg-muted"
+              onClick={(e) => {
+                e.stopPropagation()
+                if (onViewHeatmap) onViewHeatmap(habit)
+              }}
+            >
+              <Flame className="size-3.5 text-orange-500 fill-orange-500" /> {habit.currentStreak}
             </span>
           </div>
         </button>

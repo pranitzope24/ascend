@@ -3,6 +3,9 @@ import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/shared/app-sidebar";
 import "./globals.css";
 
 const sfPro = localFont({
@@ -34,14 +37,20 @@ export default function RootLayout({
       suppressHydrationWarning
       className={cn("h-full", "antialiased", sfPro.variable, geistMono.variable, "font-sans")}
     >
-      <body className="min-h-full flex flex-col"><ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider></body>
+      <body className="min-h-full flex flex-col">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <TooltipProvider delayDuration={0}>
+            <SidebarProvider>
+              <AppSidebar />
+              <SidebarInset className="bg-background">
+                <main className="flex-1 w-full flex flex-col">
+                  {children}
+                </main>
+              </SidebarInset>
+            </SidebarProvider>
+          </TooltipProvider>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
