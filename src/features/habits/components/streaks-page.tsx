@@ -1,10 +1,11 @@
 "use client"
 
 import { useEffect, useState, useRef } from "react"
-import { Flame, Loader2 } from "lucide-react"
+import { Flame, Loader2, ChevronLeft, ChevronRight } from "lucide-react"
 
 import { PageHeader, PageShell } from "@/components/shared/page-shell"
 import { SidebarTrigger } from "@/components/ui/sidebar"
+import { Button } from "@/components/ui/button"
 import { getAllHabitLogs } from "@/features/habits/services/habit-service"
 import { HeatmapGrid } from "@/features/habits/components/heatmap-grid"
 import { useHabitStore } from "@/store/habit-store"
@@ -20,6 +21,7 @@ export function StreaksPage() {
   const [logsByHabit, setLogsByHabit] = useState<Record<string, Record<string, boolean>>>({})
   const [loading, setLoading] = useState(true)
   const [mode, setMode] = useState<ViewMode>("weekly")
+  const [offsetCounter, setOffsetCounter] = useState(0)
   
   // We'll use an array of refs for each habit's container to scroll them all
   const scrollRefs = useRef<(HTMLDivElement | null)[]>([])
@@ -46,17 +48,31 @@ export function StreaksPage() {
         if (ref) ref.scrollLeft = ref.scrollWidth
       })
     }
-  }, [loading, mode, habits.length])
+  }, [loading, mode, offsetCounter, habits.length])
+
+  const handleModeChange = (m: ViewMode) => {
+    setMode(m)
+    setOffsetCounter(0)
+  }
 
   const weeksCount = mode === "yearly" ? 52 : mode === "monthly" ? 4 : 1
 
-  // Generate weeks of history up to today (only needed once per render)
-  const weeks: { date: string, isFuture: boolean, dayOfWeek: number }[][] = []
+  // Base date starts as today, but shifted by the offset
   const today = new Date()
-  const currentDayOfWeek = today.getDay()
+  const baseDate = new Date(today)
+  
+  if (mode === "weekly") {
+    baseDate.setDate(baseDate.getDate() + (offsetCounter * 7))
+  } else if (mode === "monthly") {
+    baseDate.setDate(baseDate.getDate() + (offsetCounter * 28))
+  } else if (mode === "yearly") {
+    baseDate.setDate(baseDate.getDate() + (offsetCounter * 364))
+  }
+
+  const currentDayOfWeek = baseDate.getDay()
   const daysToSunday = currentDayOfWeek === 0 ? 0 : 7 - currentDayOfWeek
-  const endDate = new Date(today)
-  endDate.setDate(today.getDate() + daysToSunday) // Move to Sunday
+  const endDate = new Date(baseDate)
+  endDate.setDate(baseDate.getDate() + daysToSunday) // Move to Sunday
   
   const startDate = new Date(endDate)
   startDate.setDate(endDate.getDate() - (weeksCount * 7) + 1) // Start on a Monday
@@ -65,6 +81,8 @@ export function StreaksPage() {
   
   const monthLabels: { label: string; index: number }[] = []
   let currentMonth = -1
+
+  const weeks: { date: string, isFuture: boolean, dayOfWeek: number }[][] = []
 
   for (let w = 0; w < weeksCount; w++) {
     const weekDays = []
@@ -89,6 +107,9 @@ export function StreaksPage() {
     weeks.push(weekDays)
   }
 
+  const formatDate = (d: Date) => d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: (mode === "yearly" || d.getFullYear() !== today.getFullYear()) ? "numeric" : undefined })
+  const dateRangeLabel = `${formatDate(startDate)} - ${formatDate(endDate)}`
+
   return (
     <PageShell>
       <PageHeader
@@ -108,7 +129,7 @@ export function StreaksPage() {
                   "px-3 py-1 text-xs font-medium rounded-md capitalize transition-colors",
                   mode === m ? "bg-background shadow-sm" : "text-muted-foreground hover:text-foreground"
                 )}
-                onClick={() => setMode(m)}
+                onClick={() => handleModeChange(m)}
               >
                 {m}
               </button>
@@ -117,7 +138,19 @@ export function StreaksPage() {
         }
       />
 
-      <div className="mt-8 space-y-8">
+      <div className="flex items-center justify-between mt-6">
+        <h2 className="text-sm font-medium text-muted-foreground">{dateRangeLabel}</h2>
+        <div className="flex items-center gap-2">
+          <Button variant="outline" size="icon" className="size-8" onClick={() => setOffsetCounter(prev => prev - 1)}>
+            <ChevronLeft className="size-4" />
+          </Button>
+          <Button variant="outline" size="icon" className="size-8" onClick={() => setOffsetCounter(prev => prev + 1)} disabled={offsetCounter >= 0}>
+            <ChevronRight className="size-4" />
+          </Button>
+        </div>
+      </div>
+
+      <div className="mt-4 space-y-8">
         {loading ? (
           <div className="flex h-32 items-center justify-center">
             <Loader2 className="size-6 animate-spin text-muted-foreground" />
