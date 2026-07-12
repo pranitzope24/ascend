@@ -1,7 +1,7 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import { Flame } from "lucide-react"
+import { useEffect, useState } from "react"
 
 import { ModeToggle } from "@/components/ModeToggle"
 import { PageHeader, PageShell } from "@/components/shared/page-shell"
@@ -33,6 +33,7 @@ export function DashboardPage() {
           <ModeToggle />
           </>
         }
+        description="Track your progress"
         title={
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />

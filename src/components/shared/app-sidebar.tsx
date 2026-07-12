@@ -2,6 +2,7 @@
 
 import { Flame, Home, ListTodo, Settings } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
 
@@ -29,8 +30,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <Sidebar collapsible="icon" variant="inset" {...props}>
         <SidebarHeader className="p-4 border-b">
           <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary text-primary-foreground font-bold tracking-tight">
-              A
+            <div className="flex h-8 w-8 items-center justify-center shrink-0">
+              <Image src="/ascend_d.png" alt="Ascend Logo" width={32} height={32} className="h-8 w-8 object-contain" />
             </div>
             <span className="font-bold tracking-tight text-lg group-data-[collapsible=icon]:hidden">Ascend</span>
           </div>

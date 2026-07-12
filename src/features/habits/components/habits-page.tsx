@@ -1,19 +1,19 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import { Plus, Settings } from "lucide-react"
+import { useEffect, useState } from "react"
 
 import { ModeToggle } from "@/components/ModeToggle"
 import { PageHeader, PageShell } from "@/components/shared/page-shell"
 import { Button } from "@/components/ui/button"
+import { SidebarTrigger } from "@/components/ui/sidebar"
 import { HabitCard } from "@/features/habits/components/habit-card"
 import { HabitEmptyState } from "@/features/habits/components/habit-empty-state"
 import { HabitFormDialog } from "@/features/habits/components/habit-form-dialog"
 import { HabitHeatmapDialog } from "@/features/habits/components/habit-heatmap-dialog"
-import { SettingsDialog } from "@/features/settings/components/settings-dialog"
 import type { Habit } from "@/features/habits/types"
+import { SettingsDialog } from "@/features/settings/components/settings-dialog"
 import { useHabitStore } from "@/store/habit-store"
-import { SidebarTrigger } from "@/components/ui/sidebar"
 
 export function HabitsPage() {
   const habits = useHabitStore((state) => state.habits)
@@ -63,7 +63,6 @@ export function HabitsPage() {
             <span>Habits</span>
           </div>
         }
-        eyebrow="Ascend"
       />
 
       {error && (

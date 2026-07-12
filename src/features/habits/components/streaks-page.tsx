@@ -1,16 +1,16 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react"
-import { Flame, Loader2, ChevronLeft, ChevronRight } from "lucide-react"
+import { ChevronLeft, ChevronRight, Flame, Loader2 } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
 
 import { PageHeader, PageShell } from "@/components/shared/page-shell"
-import { SidebarTrigger } from "@/components/ui/sidebar"
 import { Button } from "@/components/ui/button"
-import { getAllHabitLogs } from "@/features/habits/services/habit-service"
+import { SidebarTrigger } from "@/components/ui/sidebar"
 import { HeatmapGrid } from "@/features/habits/components/heatmap-grid"
-import { useHabitStore } from "@/store/habit-store"
+import { getAllHabitLogs } from "@/features/habits/services/habit-service"
 import type { HabitLog } from "@/features/habits/types"
 import { cn } from "@/lib/utils"
+import { useHabitStore } from "@/store/habit-store"
 
 type ViewMode = "weekly" | "monthly" | "yearly"
 
@@ -136,6 +136,7 @@ export function StreaksPage() {
             ))}
           </div>
         }
+        description="Your streaks"
       />
 
       <div className="flex items-center justify-between mt-6">

@@ -1,6 +1,6 @@
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { cn } from "@/lib/utils";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -21,9 +21,37 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  themeColor: "#09090B",
+  initialScale: 1,
+  width: "device-width",
+  maximumScale: 1,
+  userScalable: false,
+};
+
 export const metadata: Metadata = {
   title: "Ascend — Habit tracker",
   description: "An offline-first habit tracker for building better routines.",
+  applicationName: "Ascend",
+  appleWebApp: {
+    capable: true,
+    title: "Ascend",
+    statusBarStyle: "default",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+  openGraph: {
+    type: "website",
+    siteName: "Ascend",
+    title: "Ascend — Habit tracker",
+    description: "An offline-first habit tracker for building better routines.",
+  },
+  twitter: {
+    card: "summary",
+    title: "Ascend — Habit tracker",
+    description: "An offline-first habit tracker for building better routines.",
+  },
 };
 
 export default function RootLayout({
