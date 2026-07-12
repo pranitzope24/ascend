@@ -31,7 +31,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarHeader className="p-4 border-b">
           <div className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center shrink-0">
-              <Image src="/ascend_d.png" alt="Ascend Logo" width={32} height={32} className="h-8 w-8 object-contain" />
+              <Image src="/ascend_dark.png" alt="Ascend Logo" width={32} height={32} className="h-8 w-8 object-contain rounded-md" />
             </div>
             <span className="font-bold tracking-tight text-lg group-data-[collapsible=icon]:hidden">Ascend</span>
           </div>
