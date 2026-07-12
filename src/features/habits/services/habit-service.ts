@@ -1,7 +1,7 @@
 "use server"
 
-import { prisma } from "@/lib/prisma"
 import type { Habit, HabitFormValues, HabitLog } from "@/features/habits/types"
+import { prisma } from "@/lib/prisma"
 
 export async function listActiveHabits(): Promise<Habit[]> {
   const habits = await prisma.habit.findMany({
@@ -67,7 +67,7 @@ export async function getLogsForDate(date: string): Promise<Record<string, Habit
     where: { date },
   })
   
-  return logs.reduce((acc, log) => {
+  return logs.reduce((acc: any, log: any) => {
     acc[log.habitId] = log as unknown as HabitLog
     return acc
   }, {} as Record<string, HabitLog>)
