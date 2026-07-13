@@ -73,21 +73,23 @@ export default async function RootLayout({
       <body className="min-h-full flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <TooltipProvider delayDuration={0}>
-            {session ? (
-              <SidebarProvider>
-                <AppSidebar />
-                <SidebarInset className="bg-background">
-                  <main className="flex-1 w-full flex flex-col pb-28 md:pb-0">
-                    {children}
-                  </main>
-                  <MobileDock />
-                </SidebarInset>
-              </SidebarProvider>
-            ) : (
-              <main className="flex-1 w-full flex flex-col">
-                {children}
-              </main>
-            )}
+            <SidebarProvider>
+              {session ? (
+                <>
+                  <AppSidebar />
+                  <SidebarInset className="bg-background">
+                    <main className="flex-1 w-full flex flex-col pb-28 md:pb-0">
+                      {children}
+                    </main>
+                    <MobileDock />
+                  </SidebarInset>
+                </>
+              ) : (
+                <main className="flex-1 w-full flex flex-col">
+                  {children}
+                </main>
+              )}
+            </SidebarProvider>
           </TooltipProvider>
         </ThemeProvider>
       </body>
