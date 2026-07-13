@@ -6,15 +6,71 @@ datasource db {
   provider = "postgresql"
 }
 
+model User {
+  id            String          @id @default(uuid())
+  name          String?
+  email         String          @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  habits        Habit[]
+  profile       Profile?
+  settings      AppSettings?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+ 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+ 
+  @@id([identifier, token])
+}
+
 model Habit {
-  id          String     @id @default(uuid())
-  title       String
-  description String
-  icon        String
-  color       String
-  category    String
-  difficulty  String
-  xp          Int
+  id                String     @id @default(uuid())
+  userId            String
+  user              User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title             String
+  description       String
+  icon              String
+  color             String
+  category          String
+  difficulty        String
+  xp                Int
   isArchived        Boolean    @default(false)
   currentStreak     Int        @default(0)
   longestStreak     Int        @default(0)
@@ -36,14 +92,18 @@ model HabitLog {
 }
 
 model Profile {
-  id           String @id @default("current")
+  id           String @id @default(uuid())
+  userId       String @unique
+  user         User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   currentXP    Int    @default(0)
   currentLevel Int    @default(1)
   coins        Int    @default(0)
 }
 
 model AppSettings {
-  id            String  @id @default("app")
+  id            String  @id @default(uuid())
+  userId        String  @unique
+  user          User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   theme         String  @default("system")
   animations    Boolean @default(true)
   notifications Boolean @default(false)

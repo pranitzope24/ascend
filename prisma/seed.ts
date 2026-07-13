@@ -90,11 +90,20 @@ async function main() {
   await prisma.habit.deleteMany({})
   await prisma.appSettings.deleteMany({})
   await prisma.profile.deleteMany({})
+  await prisma.user.deleteMany({})
+
+  console.log("Seeding dummy user...")
+  const dummyUser = await prisma.user.create({
+    data: {
+      email: "dummy@example.com",
+      name: "Dummy User",
+    }
+  })
 
   console.log("Seeding profile...")
   await prisma.profile.create({
     data: {
-      id: "user",
+      userId: dummyUser.id,
       currentLevel: 5,
       currentXP: 450,
       coins: 120,
@@ -163,6 +172,7 @@ async function main() {
         longestStreak,
         lastCompletedDate,
         createdAt: dates[0], // set created to a year ago
+        userId: dummyUser.id,
       }
     })
 
@@ -190,3 +200,4 @@ main()
   .finally(async () => {
     await prisma.$disconnect()
   })
+

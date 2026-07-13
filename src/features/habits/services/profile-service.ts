@@ -2,33 +2,41 @@
 
 import { prisma } from "@/lib/prisma"
 import type { Profile } from "@/features/habits/types"
+import { auth } from "@/auth"
+
+async function getUserId() {
+  const session = await auth()
+  if (!session?.user?.id) throw new Error("Unauthorized")
+  return session.user.id
+}
 
 const DEFAULT_PROFILE = {
-  id: "current",
   currentXP: 0,
   currentLevel: 1,
   coins: 0,
 }
 
 export async function getProfile(): Promise<Profile> {
+  const userId = await getUserId()
   const profile = await prisma.profile.findUnique({
-    where: { id: "current" },
+    where: { userId },
   })
   
   if (profile) return profile as Profile
   
   // Create default profile if none exists
   const newProfile = await prisma.profile.create({
-    data: DEFAULT_PROFILE,
+    data: { ...DEFAULT_PROFILE, userId },
   })
   return newProfile as Profile
 }
 
 export async function updateProfile(updates: Partial<Profile>): Promise<Profile> {
+  const userId = await getUserId()
   const profile = await prisma.profile.upsert({
-    where: { id: "current" },
+    where: { userId },
     update: updates,
-    create: { ...DEFAULT_PROFILE, ...updates },
+    create: { ...DEFAULT_PROFILE, ...updates, userId },
   })
   return profile as Profile
 }

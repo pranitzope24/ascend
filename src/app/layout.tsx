@@ -55,11 +55,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+import { auth } from "@/auth";
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+
   return (
     <html
       lang="en"
@@ -70,13 +74,21 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <TooltipProvider delayDuration={0}>
             <SidebarProvider>
-              <AppSidebar />
-              <SidebarInset className="bg-background">
-                <main className="flex-1 w-full flex flex-col pb-28 md:pb-0">
+              {session ? (
+                <>
+                  <AppSidebar />
+                  <SidebarInset className="bg-background">
+                    <main className="flex-1 w-full flex flex-col pb-28 md:pb-0">
+                      {children}
+                    </main>
+                    <MobileDock />
+                  </SidebarInset>
+                </>
+              ) : (
+                <main className="flex-1 w-full flex flex-col">
                   {children}
                 </main>
-                <MobileDock />
-              </SidebarInset>
+              )}
             </SidebarProvider>
           </TooltipProvider>
         </ThemeProvider>

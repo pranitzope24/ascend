@@ -27,6 +27,7 @@ export const DEFAULT_XP: Record<HabitDifficulty, number> = {
 
 export interface Habit {
   id: string
+  userId: string
   title: string
   description: string
   icon: string
@@ -56,14 +57,16 @@ export interface HabitLog {
 }
 
 export interface AppSettings {
-  id: "app"
+  id: string
+  userId: string
   theme: "light" | "dark" | "system"
   animations: boolean
   notifications: boolean
 }
 
 export interface Profile {
-  id: "current"
+  id: string
+  userId: string
   currentXP: number
   currentLevel: number
   coins: number
