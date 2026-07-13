@@ -1,6 +1,6 @@
 "use client"
 
-import { Flame, Home, ListTodo, Settings } from "lucide-react"
+import { Dumbbell, Flame, LayoutDashboard, ListTodo, Settings } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
@@ -44,7 +44,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <SidebarMenuItem>
                   <SidebarMenuButton asChild isActive={pathname === "/"}>
                     <Link href="/">
-                      <Home />
+                      <LayoutDashboard />
                       <span>Dashboard</span>
                     </Link>
                   </SidebarMenuButton>
@@ -54,6 +54,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <Link href="/habits">
                       <ListTodo />
                       <span>Habits</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild isActive={pathname === "/workouts"}>
+                    <Link href="/workouts">
+                      <Dumbbell />
+                      <span>Workouts</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

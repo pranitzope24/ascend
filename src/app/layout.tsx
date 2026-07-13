@@ -6,6 +6,7 @@ import localFont from "next/font/local";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/shared/app-sidebar";
+import { MobileDock } from "@/components/shared/mobile-dock";
 import "./globals.css";
 
 const sfPro = localFont({
@@ -71,9 +72,10 @@ export default function RootLayout({
             <SidebarProvider>
               <AppSidebar />
               <SidebarInset className="bg-background">
-                <main className="flex-1 w-full flex flex-col">
+                <main className="flex-1 w-full flex flex-col pb-28 md:pb-0">
                   {children}
                 </main>
+                <MobileDock />
               </SidebarInset>
             </SidebarProvider>
           </TooltipProvider>
