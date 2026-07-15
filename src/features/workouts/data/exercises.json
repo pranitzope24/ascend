@@ -1,0 +1,559 @@
+[
+  {
+    "id": "shoulder-press",
+    "name": "Shoulder Press",
+    "category": "Push",
+    "description": "A multi-joint overhead pressing movement emphasizing the anterior and lateral deltoids, driving vertical force production and shoulder girdle stability.",
+    "equipment": "Barbell",
+    "difficulty": "Intermediate",
+    "isCompound": true,
+    "isUnilateral": false,
+    "defaultRestSeconds": 120,
+    "muscles": [
+      {
+        "slug": "deltoids",
+        "contribution": 1.0
+      },
+      {
+        "slug": "triceps",
+        "contribution": 0.60
+      },
+      {
+        "slug": "trapezius",
+        "contribution": 0.35
+      },
+      {
+        "slug": "chest",
+        "contribution": 0.20
+      }
+    ]
+  },
+  {
+    "id": "incline-dumbbell-press",
+    "name": "Incline Dumbbell Press",
+    "category": "Push",
+    "description": "An upper-body pressing movement performed on an incline bench, deliberately emphasizing the clavicular head of the chest while forcing heavy stabilization from the shoulders.",
+    "equipment": "Dumbbell",
+    "difficulty": "Intermediate",
+    "isCompound": true,
+    "isUnilateral": false,
+    "defaultRestSeconds": 120,
+    "muscles": [
+      {
+        "slug": "chest",
+        "contribution": 1.0
+      },
+      {
+        "slug": "deltoids",
+        "contribution": 0.65
+      },
+      {
+        "slug": "triceps",
+        "contribution": 0.40
+      }
+    ]
+  },
+  {
+    "id": "flat-dumbbell-press",
+    "name": "Flat Dumbbell Press",
+    "category": "Push",
+    "description": "A press on a flat bench using dumbbells, targeting the chest with a greater range of motion and transverse plane adduction compared to fixed barbell pressing.",
+    "equipment": "Dumbbell",
+    "difficulty": "Intermediate",
+    "isCompound": true,
+    "isUnilateral": false,
+    "defaultRestSeconds": 120,
+    "muscles": [
+      {
+        "slug": "chest",
+        "contribution": 1.0
+      },
+      {
+        "slug": "deltoids",
+        "contribution": 0.45
+      },
+      {
+        "slug": "triceps",
+        "contribution": 0.35
+      }
+    ]
+  },
+  {
+    "id": "bench-press",
+    "name": "Bench Press",
+    "category": "Push",
+    "description": "The foundational barbell press on a flat bench, targeting the sternocostal chest, anterior shoulders, and triceps to develop absolute upper-body pushing strength.",
+    "equipment": "Barbell",
+    "difficulty": "Intermediate",
+    "isCompound": true,
+    "isUnilateral": false,
+    "defaultRestSeconds": 120,
+    "muscles": [
+      {
+        "slug": "chest",
+        "contribution": 1.0
+      },
+      {
+        "slug": "triceps",
+        "contribution": 0.42
+      },
+      {
+        "slug": "deltoids",
+        "contribution": 0.28
+      }
+    ]
+  },
+  {
+    "id": "lateral-raises",
+    "name": "Lateral Raises",
+    "category": "Push",
+    "description": "An isolation exercise that builds shoulder width by targeting the lateral head of the deltoids through coronal plane abduction.",
+    "equipment": "Dumbbell",
+    "difficulty": "Beginner",
+    "isCompound": false,
+    "isUnilateral": false,
+    "defaultRestSeconds": 60,
+    "muscles": [
+      {
+        "slug": "deltoids",
+        "contribution": 1.0
+      },
+      {
+        "slug": "trapezius",
+        "contribution": 0.30
+      }
+    ]
+  },
+  {
+    "id": "cable-fly",
+    "name": "Cable Fly",
+    "category": "Push",
+    "description": "An isolation exercise using dual cables that provides constant tension on the pectoralis major through horizontal adduction across the midline.",
+    "equipment": "Cable",
+    "difficulty": "Beginner",
+    "isCompound": false,
+    "isUnilateral": false,
+    "defaultRestSeconds": 90,
+    "muscles": [
+      {
+        "slug": "chest",
+        "contribution": 1.0
+      },
+      {
+        "slug": "deltoids",
+        "contribution": 0.35
+      },
+      {
+        "slug": "biceps",
+        "contribution": 0.15
+      }
+    ]
+  },
+  {
+    "id": "chest-fly",
+    "name": "Chest Fly",
+    "category": "Push",
+    "description": "An isolation exercise typically performed on a pec-deck machine, removing stability demands to intensely focus on chest horizontal adduction.",
+    "equipment": "Machine",
+    "difficulty": "Beginner",
+    "isCompound": false,
+    "isUnilateral": false,
+    "defaultRestSeconds": 90,
+    "muscles": [
+      {
+        "slug": "chest",
+        "contribution": 1.0
+      },
+      {
+        "slug": "deltoids",
+        "contribution": 0.25
+      }
+    ]
+  },
+  {
+    "id": "tricep-pushdown",
+    "name": "Tricep Pushdown",
+    "category": "Push",
+    "description": "A cable isolation exercise that targets the triceps through pure elbow extension, highlighting the lateral and medial heads by keeping the humerus locked.",
+    "equipment": "Cable",
+    "difficulty": "Beginner",
+    "isCompound": false,
+    "isUnilateral": false,
+    "defaultRestSeconds": 60,
+    "muscles": [
+      {
+        "slug": "triceps",
+        "contribution": 1.0
+      }
+    ]
+  },
+  {
+    "id": "dumbbell-tricep-extension",
+    "name": "Dumbbell Tricep Extension",
+    "category": "Push",
+    "description": "An overhead tricep isolation exercise that deeply stretches and targets the long head of the triceps brachii through overhead elbow extension.",
+    "equipment": "Dumbbell",
+    "difficulty": "Beginner",
+    "isCompound": false,
+    "isUnilateral": false,
+    "defaultRestSeconds": 60,
+    "muscles": [
+      {
+        "slug": "triceps",
+        "contribution": 1.0
+      }
+    ]
+  },
+  {
+    "id": "bicep-curl",
+    "name": "Bicep Curl",
+    "category": "Pull",
+    "description": "An elbow flexion isolation exercise targeting the biceps brachii and supinators to develop anterior arm size and absolute flexion strength.",
+    "equipment": "Dumbbell",
+    "difficulty": "Beginner",
+    "isCompound": false,
+    "isUnilateral": false,
+    "defaultRestSeconds": 60,
+    "muscles": [
+      {
+        "slug": "biceps",
+        "contribution": 1.0
+      },
+      {
+        "slug": "forearm",
+        "contribution": 0.45
+      }
+    ]
+  },
+  {
+    "id": "cable-curl",
+    "name": "Cable Curl",
+    "category": "Pull",
+    "description": "An isolation exercise using cables to provide continuous, unbroken mechanical tension on the biceps throughout the entire curling motion.",
+    "equipment": "Cable",
+    "difficulty": "Beginner",
+    "isCompound": false,
+    "isUnilateral": false,
+    "defaultRestSeconds": 60,
+    "muscles": [
+      {
+        "slug": "biceps",
+        "contribution": 1.0
+      },
+      {
+        "slug": "forearm",
+        "contribution": 0.40
+      }
+    ]
+  },
+  {
+    "id": "lat-pulldown",
+    "name": "Lat Pulldown",
+    "category": "Pull",
+    "description": "A fundamental vertical pulling compound exercise targeting the width of the back, primarily forcing the latissimus dorsi to pull the humerus downward.",
+    "equipment": "Cable",
+    "difficulty": "Beginner",
+    "isCompound": true,
+    "isUnilateral": false,
+    "defaultRestSeconds": 90,
+    "muscles": [
+      {
+        "slug": "upper-back",
+        "contribution": 1.0
+      },
+      {
+        "slug": "biceps",
+        "contribution": 0.45
+      },
+      {
+        "slug": "trapezius",
+        "contribution": 0.35
+      },
+      {
+        "slug": "forearm",
+        "contribution": 0.25
+      },
+      {
+        "slug": "deltoids",
+        "contribution": 0.20
+      }
+    ]
+  },
+  {
+    "id": "upper-row",
+    "name": "Upper Row",
+    "category": "Pull",
+    "description": "A horizontal cable or machine row pulled with flared elbows, shifting the mechanical emphasis to the middle traps, rhomboids, and rear deltoids.",
+    "equipment": "Cable",
+    "difficulty": "Intermediate",
+    "isCompound": true,
+    "isUnilateral": false,
+    "defaultRestSeconds": 90,
+    "muscles": [
+      {
+        "slug": "upper-back",
+        "contribution": 1.0
+      },
+      {
+        "slug": "trapezius",
+        "contribution": 0.85
+      },
+      {
+        "slug": "deltoids",
+        "contribution": 0.70
+      },
+      {
+        "slug": "biceps",
+        "contribution": 0.40
+      },
+      {
+        "slug": "forearm",
+        "contribution": 0.25
+      }
+    ]
+  },
+  {
+    "id": "lower-row",
+    "name": "Lower Row",
+    "category": "Pull",
+    "description": "A horizontal row pulling with a narrow grip and tucked elbows towards the lower waist, heavily emphasizing the latissimus dorsi and sagittal extension.",
+    "equipment": "Cable",
+    "difficulty": "Intermediate",
+    "isCompound": true,
+    "isUnilateral": false,
+    "defaultRestSeconds": 90,
+    "muscles": [
+      {
+        "slug": "upper-back",
+        "contribution": 1.0
+      },
+      {
+        "slug": "biceps",
+        "contribution": 0.50
+      },
+      {
+        "slug": "trapezius",
+        "contribution": 0.45
+      },
+      {
+        "slug": "deltoids",
+        "contribution": 0.35
+      },
+      {
+        "slug": "lower-back",
+        "contribution": 0.30
+      },
+      {
+        "slug": "forearm",
+        "contribution": 0.25
+      }
+    ]
+  },
+  {
+    "id": "deadlift",
+    "name": "Deadlift",
+    "category": "Pull",
+    "description": "The premier full-body compound exercise that builds immense strength in the posterior chain, requiring massive force from the glutes, hamstrings, and erector spinae.",
+    "equipment": "Barbell",
+    "difficulty": "Advanced",
+    "isCompound": true,
+    "isUnilateral": false,
+    "defaultRestSeconds": 180,
+    "muscles": [
+      {
+        "slug": "gluteal",
+        "contribution": 1.0
+      },
+      {
+        "slug": "lower-back",
+        "contribution": 0.85
+      },
+      {
+        "slug": "hamstring",
+        "contribution": 0.80
+      },
+      {
+        "slug": "quadriceps",
+        "contribution": 0.65
+      },
+      {
+        "slug": "trapezius",
+        "contribution": 0.50
+      },
+      {
+        "slug": "upper-back",
+        "contribution": 0.40
+      },
+      {
+        "slug": "forearm",
+        "contribution": 0.35
+      },
+      {
+        "slug": "abs",
+        "contribution": 0.25
+      }
+    ]
+  },
+  {
+    "id": "leg-press",
+    "name": "Leg Press",
+    "category": "Legs",
+    "description": "A lower-body compound press performed on a machine, targeting the quadriceps, glutes, and adductors while eliminating axial load on the spine.",
+    "equipment": "Machine",
+    "difficulty": "Beginner",
+    "isCompound": true,
+    "isUnilateral": false,
+    "defaultRestSeconds": 120,
+    "muscles": [
+      {
+        "slug": "quadriceps",
+        "contribution": 1.0
+      },
+      {
+        "slug": "gluteal",
+        "contribution": 0.55
+      },
+      {
+        "slug": "adductors",
+        "contribution": 0.35
+      },
+      {
+        "slug": "hamstring",
+        "contribution": 0.25
+      },
+      {
+        "slug": "calves",
+        "contribution": 0.15
+      }
+    ]
+  },
+  {
+    "id": "leg-curl",
+    "name": "Leg Curl",
+    "category": "Legs",
+    "description": "An isolation exercise using a machine to target and strengthen the hamstrings through controlled knee flexion.",
+    "equipment": "Machine",
+    "difficulty": "Beginner",
+    "isCompound": false,
+    "isUnilateral": false,
+    "defaultRestSeconds": 60,
+    "muscles": [
+      {
+        "slug": "hamstring",
+        "contribution": 1.0
+      },
+      {
+        "slug": "calves",
+        "contribution": 0.30
+      }
+    ]
+  },
+  {
+    "id": "leg-extension",
+    "name": "Leg Extension",
+    "category": "Legs",
+    "description": "An isolation exercise on a machine that targets and strengthens the quadriceps entirely through open-kinetic-chain knee extension.",
+    "equipment": "Machine",
+    "difficulty": "Beginner",
+    "isCompound": false,
+    "isUnilateral": false,
+    "defaultRestSeconds": 60,
+    "muscles": [
+      {
+        "slug": "quadriceps",
+        "contribution": 1.0
+      }
+    ]
+  },
+  {
+    "id": "squat",
+    "name": "Squat",
+    "category": "Legs",
+    "description": "The classic barbell back squat, fundamentally targeting the quadriceps, glutes, and adductors while requiring total core and spinal stabilization.",
+    "equipment": "Barbell",
+    "difficulty": "Intermediate",
+    "isCompound": true,
+    "isUnilateral": false,
+    "defaultRestSeconds": 120,
+    "muscles": [
+      {
+        "slug": "quadriceps",
+        "contribution": 1.0
+      },
+      {
+        "slug": "gluteal",
+        "contribution": 0.85
+      },
+      {
+        "slug": "adductors",
+        "contribution": 0.50
+      },
+      {
+        "slug": "lower-back",
+        "contribution": 0.40
+      },
+      {
+        "slug": "hamstring",
+        "contribution": 0.30
+      },
+      {
+        "slug": "calves",
+        "contribution": 0.20
+      },
+      {
+        "slug": "abs",
+        "contribution": 0.15
+      }
+    ]
+  },
+  {
+    "id": "lunges",
+    "name": "Lunges",
+    "category": "Legs",
+    "description": "A unilateral lower-body compound exercise that builds immense balance, coordination, and strength in the lead leg's quadriceps and glutes.",
+    "equipment": "Dumbbell",
+    "difficulty": "Intermediate",
+    "isCompound": true,
+    "isUnilateral": true,
+    "defaultRestSeconds": 90,
+    "muscles": [
+      {
+        "slug": "quadriceps",
+        "contribution": 1.0
+      },
+      {
+        "slug": "gluteal",
+        "contribution": 0.75
+      },
+      {
+        "slug": "adductors",
+        "contribution": 0.45
+      },
+      {
+        "slug": "hamstring",
+        "contribution": 0.35
+      },
+      {
+        "slug": "calves",
+        "contribution": 0.20
+      }
+    ]
+  },
+  {
+    "id": "calf-raises",
+    "name": "Calf Raises",
+    "category": "Legs",
+    "description": "An ankle extension isolation exercise targeting the triceps surae complex to develop localized strength, size, and ankle stability.",
+    "equipment": "Machine",
+    "difficulty": "Beginner",
+    "isCompound": false,
+    "isUnilateral": false,
+    "defaultRestSeconds": 60,
+    "muscles": [
+      {
+        "slug": "calves",
+        "contribution": 1.0
+      }
+    ]
+  }
+]
