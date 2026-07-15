@@ -14,11 +14,14 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
-  habits        Habit[]
-  profile       Profile?
-  settings      AppSettings?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  habits            Habit[]
+  profile           Profile?
+  settings          AppSettings?
+  workoutTemplates  WorkoutTemplate[]
+  workoutSessions   WorkoutSession[]
+  workoutSettings   WorkoutSettings?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 }
 
 model Account {
@@ -107,4 +110,40 @@ model AppSettings {
   theme         String  @default("system")
   animations    Boolean @default(true)
   notifications Boolean @default(false)
+}
+
+model WorkoutTemplate {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name        String
+  description String?
+  exercises   Json
+  version     Int      @default(1)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model WorkoutSession {
+  id                String    @id @default(uuid())
+  userId            String
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  templateId        String?
+  templateVersion   Int?
+  name              String
+  startedAt         DateTime
+  completedAt       DateTime?
+  duration          Int?
+  notes             String?
+  exerciseSnapshots Json
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+}
+
+model WorkoutSettings {
+  id           String @id @default(uuid())
+  userId       String @unique
+  user         User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  weightUnit   String @default("kg")
+  distanceUnit String @default("km")
 }
