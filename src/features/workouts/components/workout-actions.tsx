@@ -79,7 +79,7 @@ export function WorkoutActions() {
               )}
             </>
           ) : (
-            <DropdownMenuItem onClick={() => router.push("/workouts/templates")}>
+            <DropdownMenuItem onClick={() => router.push("/workouts/templates/add")}>
               Create a template...
             </DropdownMenuItem>
           )}

@@ -1,13 +1,12 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { PageShell, PageHeader } from "@/components/shared/page-shell"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
 import { useWorkoutTemplateStore } from "@/store/workout-template-store"
 import { useWorkoutStore } from "@/store/workout-store"
 import { WorkoutTemplateCard } from "@/features/workouts/components/workout-template-card"
-import { WorkoutTemplateForm } from "@/features/workouts/components/workout-template-form"
 import type { WorkoutTemplate } from "@/features/workouts/types"
 import { useRouter } from "next/navigation"
 
@@ -15,8 +14,6 @@ export default function TemplatesPage() {
   const router = useRouter()
   const { templates, loadTemplates } = useWorkoutTemplateStore()
   const { startWorkout } = useWorkoutStore()
-  const [formOpen, setFormOpen] = useState(false)
-  const [editingTemplate, setEditingTemplate] = useState<WorkoutTemplate | null>(null)
 
   useEffect(() => {
     loadTemplates()
@@ -39,13 +36,11 @@ export default function TemplatesPage() {
   }
 
   const handleEdit = (template: WorkoutTemplate) => {
-    setEditingTemplate(template)
-    setFormOpen(true)
+    router.push(`/workouts/templates/${template.id}/edit`)
   }
 
   const handleCreate = () => {
-    setEditingTemplate(null)
-    setFormOpen(true)
+    router.push("/workouts/templates/add")
   }
 
   return (
@@ -77,13 +72,6 @@ export default function TemplatesPage() {
           ))
         )}
       </div>
-
-      <WorkoutTemplateForm 
-        open={formOpen} 
-        onOpenChange={setFormOpen} 
-        template={editingTemplate}
-        key={editingTemplate ? editingTemplate.id : 'new'}
-      />
     </PageShell>
   )
 }
