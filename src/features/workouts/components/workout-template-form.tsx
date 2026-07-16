@@ -4,7 +4,6 @@ import { useForm, useFieldArray } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { WorkoutTemplateFormSchema, type WorkoutTemplateFormValues, type WorkoutTemplate } from "@/features/workouts/types"
 import { useWorkoutTemplateStore } from "@/store/workout-template-store"
-import { ResponsiveDialog } from "@/components/shared/responsive-dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -12,15 +11,15 @@ import { Field, FieldLabel, FieldContent, FieldError } from "@/components/ui/fie
 import { GripVertical, Plus, Trash2 } from "lucide-react"
 import { ExercisePicker } from "./exercise-picker"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 interface WorkoutTemplateFormProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
   template?: WorkoutTemplate | null
   onSuccess?: () => void
 }
 
-export function WorkoutTemplateForm({ open, onOpenChange, template, onSuccess }: WorkoutTemplateFormProps) {
+export function WorkoutTemplateForm({ template, onSuccess }: WorkoutTemplateFormProps) {
+  const router = useRouter()
   const { createTemplate, updateTemplate } = useWorkoutTemplateStore()
   const [pickerOpen, setPickerOpen] = useState(false)
 
@@ -49,32 +48,15 @@ export function WorkoutTemplateForm({ open, onOpenChange, template, onSuccess }:
       }
       form.reset()
       onSuccess?.()
-      onOpenChange(false)
+      router.back()
     } catch (error) {
       console.error(error)
     }
   }
 
-  const footer = (
-    <div className="flex w-full justify-between sm:justify-end gap-2">
-      <Button variant="outline" type="button" onClick={() => onOpenChange(false)}>
-        Cancel
-      </Button>
-      <Button type="submit" form="template-form">
-        {isEditing ? "Save Changes" : "Create Template"}
-      </Button>
-    </div>
-  )
-
   return (
-    <ResponsiveDialog
-      open={open}
-      onOpenChange={onOpenChange}
-      title={isEditing ? "Edit Template" : "New Template"}
-      description={isEditing ? "Update your workout template details." : "Create a reusable workout template."}
-      footer={footer}
-    >
-      <form id="template-form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 pt-2">
+    <>
+      <form id="template-form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <Field>
           <FieldLabel>Name</FieldLabel>
           <FieldContent>
@@ -94,7 +76,6 @@ export function WorkoutTemplateForm({ open, onOpenChange, template, onSuccess }:
         <div className="space-y-4 pt-4 border-t">
           <div className="flex items-center justify-between">
             <h3 className="font-semibold text-lg">Exercises</h3>
-            {/* We will add an Exercise Picker hook here later */}
             <Button
               type="button"
               variant="outline"
@@ -132,6 +113,13 @@ export function WorkoutTemplateForm({ open, onOpenChange, template, onSuccess }:
             )}
           </div>
         </div>
+        
+        <div className="mt-8 flex justify-end gap-3 border-t pt-5">
+          <Button onClick={() => router.back()} type="button" variant="outline">Cancel</Button>
+          <Button type="submit" form="template-form">
+            {isEditing ? "Save Changes" : "Create Template"}
+          </Button>
+        </div>
       </form>
 
       <ExercisePicker 
@@ -148,6 +136,6 @@ export function WorkoutTemplateForm({ open, onOpenChange, template, onSuccess }:
           })
         }}
       />
-    </ResponsiveDialog>
+    </>
   )
 }
