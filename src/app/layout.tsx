@@ -1,12 +1,13 @@
+import { AppSidebar } from "@/components/shared/app-sidebar";
+import { MobileDock } from "@/components/shared/mobile-dock";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/shared/app-sidebar";
-import { MobileDock } from "@/components/shared/mobile-dock";
 import "./globals.css";
 
 const sfPro = localFont({
@@ -92,6 +93,7 @@ export default async function RootLayout({
             </SidebarProvider>
           </TooltipProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
