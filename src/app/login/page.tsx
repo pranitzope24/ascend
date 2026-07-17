@@ -2,6 +2,7 @@ import { signIn } from "@/auth"
 import { ModeToggle } from "@/components/ModeToggle"
 import { Button } from "@/components/ui/button"
 import { CircleFadingArrowUp } from "lucide-react"
+import Image from "next/image"
 
 export default function LoginPage() {
   return (
@@ -34,7 +35,7 @@ export default function LoginPage() {
           }}
         >
           <Button type="submit" variant="secondary" size="lg" className="w-full">
-            <img src="/google.svg" alt="Google" className="size-5" />
+            <Image src="/google.svg" alt="Google" width={20} height={20} className="size-5" />
             Sign in with Google
           </Button>
         </form>

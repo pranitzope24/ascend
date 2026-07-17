@@ -34,7 +34,7 @@ export function WorkoutSession() {
       setElapsed(`${minutes}:${seconds.toString().padStart(2, "0")}`)
     }, 1000)
     return () => clearInterval(interval)
-  }, [sessionStartTime])
+  }, [sessionStartTime, isHistorical])
 
   if (!activeSessionId) {
     return (

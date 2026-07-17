@@ -13,6 +13,7 @@ import {
   Timer,
 } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { signOut } from "@/auth"
 
 type ProfileStats = {
@@ -37,9 +38,11 @@ export function ProfileView({ data }: { data: ProfileStats }) {
         <div className="relative">
           <div className="bg-secondary ring-background flex h-24 w-24 items-center justify-center overflow-hidden rounded-full shadow-md ring-4">
             {user.image ? (
-              <img
+              <Image
                 src={user.image}
                 alt={user.name || "User avatar"}
+                width={96}
+                height={96}
                 className="h-full w-full object-cover"
               />
             ) : (

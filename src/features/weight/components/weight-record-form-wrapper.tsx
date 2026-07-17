@@ -9,14 +9,12 @@ export function WeightRecordFormWrapper() {
   const searchParams = useSearchParams()
   const id = searchParams.get("edit")
   const { logs, fetchLogs } = useWeightStore()
-  const [isReady, setIsReady] = useState(false)
+  const [isReady, setIsReady] = useState(() => !(id && logs.length === 0))
 
   useEffect(() => {
     // If we have an id but no logs, we should probably fetch them
     if (id && logs.length === 0) {
       fetchLogs().then(() => setIsReady(true))
-    } else {
-      setIsReady(true)
     }
   }, [id, logs.length, fetchLogs])
 
