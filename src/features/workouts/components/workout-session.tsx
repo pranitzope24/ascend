@@ -15,6 +15,8 @@ export function WorkoutSession() {
     activeSessionForm, 
     activeExercises, 
     sessionStartTime,
+    isHistorical,
+    historicalDuration,
     addExerciseToActive,
     finishWorkout,
     discardWorkout 
@@ -24,7 +26,7 @@ export function WorkoutSession() {
   const [elapsed, setElapsed] = useState("0:00")
 
   useEffect(() => {
-    if (!sessionStartTime) return
+    if (!sessionStartTime || isHistorical) return
     const interval = setInterval(() => {
       const diff = Math.floor((new Date().getTime() - sessionStartTime.getTime()) / 1000)
       const minutes = Math.floor(diff / 60)
@@ -66,11 +68,19 @@ export function WorkoutSession() {
         <div className="flex flex-col">
           <h1 className="font-semibold text-lg leading-none mb-1">{activeSessionForm?.name || "Workout"}</h1>
           <span className="text-sm text-primary font-medium flex items-center gap-1.5">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-            </span>
-            {elapsed}
+            {!isHistorical ? (
+              <>
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                </span>
+                {elapsed}
+              </>
+            ) : (
+              <span className="text-muted-foreground font-normal">
+                {sessionStartTime?.toLocaleDateString()} • {Math.floor((historicalDuration || 0) / 60)}m
+              </span>
+            )}
           </span>
         </div>
         <Button size="sm" onClick={handleFinish} className="rounded-full shadow-sm px-4">

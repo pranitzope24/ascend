@@ -1,6 +1,6 @@
 "use client"
 
-import { Dumbbell, Flame, LayoutDashboard, ListTodo, Settings } from "lucide-react"
+import { Dumbbell, Flame, LayoutDashboard, ListTodo, Settings, User } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
@@ -31,7 +31,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarHeader className="p-4 border-b">
           <div className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center shrink-0">
-              <Image src="/ascend_dark.png" alt="Ascend Logo" width={32} height={32} className="h-8 w-8 object-contain rounded-md" />
+              <Image src="/logo.svg" alt="Ascend Logo" width={32} height={32} className="h-8 w-8 object-contain rounded-md" />
             </div>
             <span className="font-bold tracking-tight text-lg group-data-[collapsible=icon]:hidden">Ascend</span>
           </div>
@@ -70,6 +70,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <Link href="/streaks">
                       <Flame />
                       <span>Streaks</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+                <SidebarMenuItem>
+                  <SidebarMenuButton asChild isActive={pathname === "/profile"}>
+                    <Link href="/profile">
+                      <User />
+                      <span>Profile</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

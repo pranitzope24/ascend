@@ -10,11 +10,13 @@ interface HeatmapGridProps {
   weeks: { date: string; isFuture: boolean; dayOfWeek: number }[][]
   logs: Record<string, boolean>
   monthLabels: { label: string; index: number }[]
+  isEditing?: boolean
+  onToggle?: (date: string, isCompleted: boolean) => void
 }
 
 const DAY_LABELS = ["MO", "TU", "WE", "TH", "FR", "SA", "SU"]
 
-export function HeatmapGrid({ habit, mode, weeks, logs, monthLabels }: HeatmapGridProps) {
+export function HeatmapGrid({ habit, mode, weeks, logs, monthLabels, isEditing, onToggle }: HeatmapGridProps) {
   if (mode === "yearly") {
     // GitHub style heatmap
     return (
@@ -91,7 +93,18 @@ export function HeatmapGrid({ habit, mode, weeks, logs, monthLabels }: HeatmapGr
           return (
             <Tooltip key={dIndex}>
               <TooltipTrigger asChild>
-                <div className={cn("flex flex-col items-center gap-1.5 cursor-default", day.isFuture ? "opacity-30" : "")}>
+                <div 
+                  className={cn(
+                    "flex flex-col items-center gap-1.5", 
+                    day.isFuture ? "opacity-30" : "",
+                    isEditing && mode === "weekly" && !day.isFuture ? "cursor-pointer hover:scale-105 active:scale-95 transition-transform" : "cursor-default"
+                  )}
+                  onClick={() => {
+                    if (isEditing && mode === "weekly" && !day.isFuture && onToggle) {
+                      onToggle(day.date, isCompleted)
+                    }
+                  }}
+                >
                   <div
                     className={cn(
                       "flex size-8 sm:size-10 items-center justify-center rounded-xl sm:rounded-2xl border-2 transition-all",

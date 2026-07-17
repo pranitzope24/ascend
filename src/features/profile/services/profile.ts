@@ -37,8 +37,8 @@ export async function getProfileStats(userId: string) {
   const currentLevel = user.profile?.currentLevel || 1
   const currentXP = user.profile?.currentXP || 0
   const coins = user.profile?.coins || 0
-  const totalXP = currentXP
-  const nextLevelXP = 1000 // simplified for now
+  const totalXP = ((currentLevel - 1) * 100) + currentXP
+  const nextLevelXP = 100
 
   return {
     user: {

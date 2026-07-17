@@ -63,7 +63,9 @@ export async function saveSession(
   values: WorkoutSessionFormValues,
   exerciseSnapshots: ExerciseSnapshot[],
   templateId?: string,
-  templateVersion?: number
+  templateVersion?: number,
+  clientStartedAt?: Date,
+  clientDuration?: number
 ): Promise<WorkoutSession> {
   const userId = await getUserId()
   
@@ -72,8 +74,8 @@ export async function saveSession(
   })
   
   const now = new Date()
-  const startedAt = existing?.startedAt || now
-  const duration = Math.floor((now.getTime() - startedAt.getTime()) / 1000)
+  const startedAt = clientStartedAt || existing?.startedAt || now
+  const duration = clientDuration ?? Math.floor((now.getTime() - startedAt.getTime()) / 1000)
 
   // Use upsert to handle both creation and update, or just create/update
   const data = {
