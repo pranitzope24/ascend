@@ -24,20 +24,17 @@ export function WeightChart({ logs }: { logs: BodyWeightLog[] }) {
 
   if (logs.length === 0) {
     return (
-      <div className="h-[300px] flex flex-col items-center justify-center border rounded-xl bg-card">
-        <span className="text-3xl mb-2">⚖️</span>
+      <div className="bg-card flex h-[300px] flex-col items-center justify-center rounded-xl border">
+        <span className="mb-2 text-3xl">⚖️</span>
         <p className="text-muted-foreground">No data available for this range.</p>
       </div>
     )
   }
 
-  const minWeight = Math.min(...logs.map(l => l.weight))
-  const maxWeight = Math.max(...logs.map(l => l.weight))
-  
-  const yDomain = [
-    Math.max(0, Math.floor(minWeight - 2)),
-    Math.ceil(maxWeight + 2)
-  ]
+  const minWeight = Math.min(...logs.map((l) => l.weight))
+  const maxWeight = Math.max(...logs.map((l) => l.weight))
+
+  const yDomain = [Math.max(0, Math.floor(minWeight - 2)), Math.ceil(maxWeight + 2)]
 
   return (
     <ChartContainer config={chartConfig} className="h-[200px] w-full">
@@ -49,25 +46,13 @@ export function WeightChart({ logs }: { logs: BodyWeightLog[] }) {
           </linearGradient>
         </defs>
         <CartesianGrid strokeDasharray="3 3" vertical={false} />
-        <XAxis 
-          dataKey="date" 
-          tickLine={false}
-          axisLine={false}
-          tickMargin={8}
-          minTickGap={32}
-        />
-        <YAxis 
-          domain={yDomain}
-          tickLine={false}
-          axisLine={false}
-          tickMargin={8}
-          width={40}
-        />
+        <XAxis dataKey="date" tickLine={false} axisLine={false} tickMargin={8} minTickGap={32} />
+        <YAxis domain={yDomain} tickLine={false} axisLine={false} tickMargin={8} width={40} />
         <ChartTooltip
           cursor={false}
           content={
-            <ChartTooltipContent 
-              indicator="dot" 
+            <ChartTooltipContent
+              indicator="dot"
               labelFormatter={(value) => value}
               formatter={(value: any) => [`${Number(value).toFixed(2)} kg`, "Weight"]}
             />
@@ -80,8 +65,18 @@ export function WeightChart({ logs }: { logs: BodyWeightLog[] }) {
           strokeWidth={3}
           fill="url(#fillWeight)"
           isAnimationActive={true}
-          dot={{ r: 4, fill: "var(--color-weight)", strokeWidth: 2, stroke: "var(--color-background)" }}
-          activeDot={{ r: 6, fill: "var(--color-weight)", strokeWidth: 2, stroke: "var(--color-background)" }}
+          dot={{
+            r: 4,
+            fill: "var(--color-weight)",
+            strokeWidth: 2,
+            stroke: "var(--color-background)",
+          }}
+          activeDot={{
+            r: 6,
+            fill: "var(--color-weight)",
+            strokeWidth: 2,
+            stroke: "var(--color-background)",
+          }}
         />
       </AreaChart>
     </ChartContainer>

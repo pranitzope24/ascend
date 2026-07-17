@@ -10,16 +10,16 @@ import { useRouter } from "next/navigation"
 
 export function WorkoutSession() {
   const router = useRouter()
-  const { 
-    activeSessionId, 
-    activeSessionForm, 
-    activeExercises, 
+  const {
+    activeSessionId,
+    activeSessionForm,
+    activeExercises,
     sessionStartTime,
     isHistorical,
     historicalDuration,
     addExerciseToActive,
     finishWorkout,
-    discardWorkout 
+    discardWorkout,
   } = useWorkoutStore()
 
   const [pickerOpen, setPickerOpen] = useState(false)
@@ -38,7 +38,7 @@ export function WorkoutSession() {
 
   if (!activeSessionId) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-4">
+      <div className="flex min-h-[50vh] flex-col items-center justify-center space-y-4">
         <p className="text-muted-foreground">No active workout session.</p>
         <Button onClick={() => router.push("/workouts")}>Go Back</Button>
       </div>
@@ -62,42 +62,45 @@ export function WorkoutSession() {
   }
 
   return (
-    <div className="flex flex-col min-h-[calc(100dvh-5rem)]">
+    <div className="flex min-h-[calc(100dvh-5rem)] flex-col">
       {/* Sticky Header */}
-      <div className="sticky top-0 z-30 bg-background/90 backdrop-blur-lg border-b pb-3 pt-3 flex items-center justify-between px-4">
+      <div className="bg-background/90 sticky top-0 z-30 flex items-center justify-between border-b px-4 pt-3 pb-3 backdrop-blur-lg">
         <div className="flex flex-col">
-          <h1 className="font-semibold text-lg leading-none mb-1">{activeSessionForm?.name || "Workout"}</h1>
-          <span className="text-sm text-primary font-medium flex items-center gap-1.5">
+          <h1 className="mb-1 text-lg leading-none font-semibold">
+            {activeSessionForm?.name || "Workout"}
+          </h1>
+          <span className="text-primary flex items-center gap-1.5 text-sm font-medium">
             {!isHistorical ? (
               <>
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                  <span className="bg-primary absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"></span>
+                  <span className="bg-primary relative inline-flex h-2 w-2 rounded-full"></span>
                 </span>
                 {elapsed}
               </>
             ) : (
               <span className="text-muted-foreground font-normal">
-                {sessionStartTime?.toLocaleDateString()} • {Math.floor((historicalDuration || 0) / 60)}m
+                {sessionStartTime?.toLocaleDateString()} •{" "}
+                {Math.floor((historicalDuration || 0) / 60)}m
               </span>
             )}
           </span>
         </div>
-        <Button size="sm" onClick={handleFinish} className="rounded-full shadow-sm px-4">
-          <Check className="size-4 mr-1.5" />
+        <Button size="sm" onClick={handleFinish} className="rounded-full px-4 shadow-sm">
+          <Check className="mr-1.5 size-4" />
           Finish
         </Button>
       </div>
 
       {/* Scrollable Body */}
-      <div className="flex-1 pt-4 pb-8 px-4 max-w-2xl mx-auto w-full">
+      <div className="mx-auto w-full max-w-2xl flex-1 px-4 pt-4 pb-8">
         {activeExercises.length === 0 ? (
-          <div className="text-center py-16 space-y-4 bg-muted/20 rounded-2xl border border-dashed mt-4">
-            <div className="mx-auto w-12 h-12 rounded-full bg-muted flex items-center justify-center mb-4">
-              <Plus className="size-6 text-muted-foreground" />
+          <div className="bg-muted/20 mt-4 space-y-4 rounded-2xl border border-dashed py-16 text-center">
+            <div className="bg-muted mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full">
+              <Plus className="text-muted-foreground size-6" />
             </div>
-            <h2 className="text-lg font-medium text-foreground">Empty Workout</h2>
-            <p className="text-muted-foreground text-sm max-w-[200px] mx-auto">
+            <h2 className="text-foreground text-lg font-medium">Empty Workout</h2>
+            <p className="text-muted-foreground mx-auto max-w-[200px] text-sm">
               Add some exercises to start tracking your sets.
             </p>
           </div>
@@ -110,38 +113,38 @@ export function WorkoutSession() {
         )}
 
         <div className="mt-6 space-y-4">
-          <Button 
-            variant="outline" 
-            className="w-full rounded-xl h-12 text-primary font-medium border-primary/20 hover:bg-primary/5 shadow-sm"
+          <Button
+            variant="outline"
+            className="text-primary border-primary/20 hover:bg-primary/5 h-12 w-full rounded-xl font-medium shadow-sm"
             onClick={() => setPickerOpen(true)}
           >
-            <Plus className="size-5 mr-2" />
+            <Plus className="mr-2 size-5" />
             Add Exercise
           </Button>
 
-          <div className="pt-8 flex justify-center">
-            <button 
+          <div className="flex justify-center pt-8">
+            <button
               onClick={handleDiscard}
-              className="text-sm text-muted-foreground hover:text-destructive transition-colors flex items-center px-4 py-2 rounded-full hover:bg-destructive/10"
+              className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 flex items-center rounded-full px-4 py-2 text-sm transition-colors"
               type="button"
             >
-              <X className="size-4 mr-1.5" />
+              <X className="mr-1.5 size-4" />
               Discard Workout
             </button>
           </div>
         </div>
       </div>
 
-      <ExercisePicker 
-        open={pickerOpen} 
-        onOpenChange={setPickerOpen} 
+      <ExercisePicker
+        open={pickerOpen}
+        onOpenChange={setPickerOpen}
         onSelect={(exercise) => {
           addExerciseToActive({
             exerciseId: exercise.id,
             exerciseName: exercise.name,
             exerciseOrder: activeExercises.length,
             muscles: exercise.muscles || [],
-            sets: []
+            sets: [],
           })
         }}
       />

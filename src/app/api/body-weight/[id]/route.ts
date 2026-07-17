@@ -2,10 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 
-export async function PATCH(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await auth()
     if (!session?.user?.id) {
@@ -18,7 +15,7 @@ export async function PATCH(
 
     // Ensure the log belongs to the user
     const existingLog = await prisma.bodyWeightLog.findUnique({
-      where: { id }
+      where: { id },
     })
 
     if (!existingLog || existingLog.userId !== session.user.id) {
@@ -32,22 +29,19 @@ export async function PATCH(
 
     const updatedLog = await prisma.bodyWeightLog.update({
       where: { id },
-      data
+      data,
     })
 
     return NextResponse.json({
       ...updatedLog,
-      weight: Number(updatedLog.weight)
+      weight: Number(updatedLog.weight),
     })
   } catch (error) {
     return NextResponse.json({ error: "Failed to update log" }, { status: 500 })
   }
 }
 
-export async function DELETE(
-  req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const session = await auth()
     if (!session?.user?.id) {
@@ -57,7 +51,7 @@ export async function DELETE(
     const { id } = await params
 
     const existingLog = await prisma.bodyWeightLog.findUnique({
-      where: { id }
+      where: { id },
     })
 
     if (!existingLog || existingLog.userId !== session.user.id) {
@@ -65,7 +59,7 @@ export async function DELETE(
     }
 
     await prisma.bodyWeightLog.delete({
-      where: { id }
+      where: { id },
     })
 
     return NextResponse.json({ success: true })

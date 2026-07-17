@@ -22,14 +22,14 @@ The home screen should answer one question:
 
 Display:
 
-* Personalized greeting
-* Current streak
-* Current level
-* XP progress
-* Today's completion percentage
-* Today's habits
-* Daily Quest
-* Quick Add Habit
+- Personalized greeting
+- Current streak
+- Current level
+- XP progress
+- Today's completion percentage
+- Today's habits
+- Daily Quest
+- Quick Add Habit
 
 ---
 
@@ -37,16 +37,16 @@ Display:
 
 Users can:
 
-* Create habits
-* Edit habits
-* Archive habits
-* Delete habits
-* Assign icons
-* Assign colors
-* Assign categories
-* Set difficulty
-* Configure XP reward
-* Optional reminder time (future)
+- Create habits
+- Edit habits
+- Archive habits
+- Delete habits
+- Assign icons
+- Assign colors
+- Assign categories
+- Set difficulty
+- Configure XP reward
+- Optional reminder time (future)
 
 ---
 
@@ -54,11 +54,11 @@ Users can:
 
 For every day:
 
-* Mark complete
-* Undo completion
-* View daily history
-* Automatic streak updates
-* Automatic XP rewards
+- Mark complete
+- Undo completion
+- View daily history
+- Automatic streak updates
+- Automatic XP rewards
 
 ---
 
@@ -66,11 +66,11 @@ For every day:
 
 Each habit tracks:
 
-* Current streak
-* Longest streak
-* Total completions
-* Success percentage
-* Missed days
+- Current streak
+- Longest streak
+- Total completions
+- Success percentage
+- Missed days
 
 ---
 
@@ -82,18 +82,18 @@ Difficulty determines default XP.
 
 Example:
 
-| Difficulty | XP |
-| ---------- | -: |
-| Easy       | 10 |
-| Medium     | 20 |
-| Hard       | 35 |
-| Extreme    | 50 |
+| Difficulty |  XP |
+| ---------- | --: |
+| Easy       |  10 |
+| Medium     |  20 |
+| Hard       |  35 |
+| Extreme    |  50 |
 
 XP contributes to:
 
-* Overall Level
-* Category Levels
-* Achievements
+- Overall Level
+- Category Levels
+- Achievements
 
 ---
 
@@ -103,15 +103,15 @@ Every day, generate a small challenge.
 
 Examples:
 
-* Complete all Fitness habits
-* Finish every habit today
-* Complete 3 habits before noon
+- Complete all Fitness habits
+- Finish every habit today
+- Complete 3 habits before noon
 
 Rewards:
 
-* Bonus XP
-* Coins
-* Achievement progress
+- Bonus XP
+- Coins
+- Achievement progress
 
 ---
 
@@ -121,9 +121,9 @@ A GitHub-style contribution view.
 
 Each day shows:
 
-* Completion %
-* XP earned
-* Completed habits
+- Completion %
+- XP earned
+- Completed habits
 
 Tap any day to inspect it.
 
@@ -133,14 +133,14 @@ Tap any day to inspect it.
 
 Overall metrics:
 
-* Completion rate
-* Total XP
-* Level progression
-* Longest streak
-* Weekly completion
-* Monthly completion
-* Category progress
-* XP history
+- Completion rate
+- Total XP
+- Level progression
+- Longest streak
+- Weekly completion
+- Monthly completion
+- Category progress
+- XP history
 
 Eventually include insights like:
 
@@ -154,14 +154,14 @@ Reward long-term consistency.
 
 Examples:
 
-* First Habit
-* 7 Day Streak
-* 30 Day Streak
-* 100 Workouts
-* Perfect Week
-* Perfect Month
-* Early Bird
-* Night Owl
+- First Habit
+- 7 Day Streak
+- 30 Day Streak
+- 100 Workouts
+- Perfect Week
+- Perfect Month
+- Early Bird
+- Night Owl
 
 Unlocked achievements should feel rewarding but not interruptive.
 
@@ -171,13 +171,13 @@ Unlocked achievements should feel rewarding but not interruptive.
 
 Displays:
 
-* Avatar
-* Level
-* Lifetime XP
-* Coins
-* Current streak
-* Longest streak
-* Achievement count
+- Avatar
+- Level
+- Lifetime XP
+- Coins
+- Current streak
+- Longest streak
+- Achievement count
 
 ---
 
@@ -187,14 +187,14 @@ Each habit belongs to one category.
 
 Examples:
 
-* 💪 Fitness
-* 📚 Learning
-* 🧠 Mindfulness
-* 💼 Career
-* 💰 Finance
-* ❤️ Relationships
-* 🍎 Health
-* ⚡ Productivity
+- 💪 Fitness
+- 📚 Learning
+- 🧠 Mindfulness
+- 💼 Career
+- 💰 Finance
+- ❤️ Relationships
+- 🍎 Health
+- ⚡ Productivity
 
 Future:
 
@@ -214,10 +214,10 @@ No passwords.
 
 Supports:
 
-* Face ID
-* Touch ID
-* Windows Hello
-* Android Biometrics
+- Face ID
+- Touch ID
+- Windows Hello
+- Android Biometrics
 
 Data always stays local.
 
@@ -239,9 +239,9 @@ Cloud sync is an optional future enhancement.
 
 Future feature:
 
-* Export JSON
-* Import JSON
-* Local backup
+- Export JSON
+- Import JSON
+- Local backup
 
 Eventually:
 
@@ -253,17 +253,17 @@ Cloud sync via Supabase.
 
 Support:
 
-* Light
-* Dark
-* System
+- Light
+- Dark
+- System
 
 Future unlockable themes:
 
-* Midnight
-* Forest
-* Ocean
-* Sunset
-* Nord
+- Midnight
+- Forest
+- Ocean
+- Sunset
+- Nord
 
 ---
 
@@ -271,14 +271,14 @@ Future unlockable themes:
 
 Show patterns like:
 
-* Best weekday
-* Worst weekday
-* Most consistent habit
-* Habit success by time of day
-* Weekly trends
-* Monthly trends
-* Category balance
-* Average completion time (if tracking time)
+- Best weekday
+- Worst weekday
+- Most consistent habit
+- Habit success by time of day
+- Weekly trends
+- Monthly trends
+- Category balance
+- Average completion time (if tracking time)
 
 ---
 
@@ -286,11 +286,11 @@ Show patterns like:
 
 After collecting enough data:
 
-* Suggest habit adjustments
-* Identify weak habits
-* Recommend routines
-* Weekly review
-* Monthly review
+- Suggest habit adjustments
+- Identify weak habits
+- Recommend routines
+- Weekly review
+- Monthly review
 
 Example:
 
@@ -304,9 +304,9 @@ Optional nightly check-in.
 
 Questions:
 
-* How was today?
-* Mood
-* Journal entry
+- How was today?
+- Mood
+- Journal entry
 
 Eventually correlate:
 
@@ -318,15 +318,15 @@ Mood ↔ Habit completion
 
 Coins earned by:
 
-* Completing quests
-* Maintaining streaks
-* Unlocking achievements
+- Completing quests
+- Maintaining streaks
+- Unlocking achievements
 
 Spend on:
 
-* Themes
-* Icons
-* App customization
+- Themes
+- Icons
+- App customization
 
 No pay-to-win mechanics.
 
@@ -346,9 +346,9 @@ Fast startup.
 
 Responsive across:
 
-* Phone
-* Tablet
-* Desktop
+- Phone
+- Tablet
+- Desktop
 
 ---
 
@@ -372,36 +372,36 @@ Say
 
 ### Phase 1 — Foundation
 
-* Habit CRUD
-* Daily tracking
-* Streaks
-* Calendar
-* Offline support
-* PWA
-* Responsive UI
+- Habit CRUD
+- Daily tracking
+- Streaks
+- Calendar
+- Offline support
+- PWA
+- Responsive UI
 
 ### Phase 2 — Gamification
 
-* XP
-* Levels
-* Achievements
-* Daily quests
-* Category progression
+- XP
+- Levels
+- Achievements
+- Daily quests
+- Category progression
 
 ### Phase 3 — Intelligence
 
-* Analytics
-* Insights
-* Reflection
-* AI coach
+- Analytics
+- Insights
+- Reflection
+- AI coach
 
 ### Phase 4 — Ecosystem
 
-* Cloud sync
-* Apple Health integration
-* Wearables
-* Social challenges
-* Widgets
+- Cloud sync
+- Apple Health integration
+- Wearables
+- Social challenges
+- Widgets
 
 ---
 

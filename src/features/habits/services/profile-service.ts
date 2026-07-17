@@ -21,9 +21,9 @@ export async function getProfile(): Promise<Profile> {
   const profile = await prisma.profile.findUnique({
     where: { userId },
   })
-  
+
   if (profile) return profile as Profile
-  
+
   // Create default profile if none exists
   const newProfile = await prisma.profile.create({
     data: { ...DEFAULT_PROFILE, userId },
@@ -51,9 +51,9 @@ export async function addXP(amount: number): Promise<Profile> {
     newLevel += 1
   }
 
-  return updateProfile({ 
-    currentXP: newXP, 
-    currentLevel: newLevel 
+  return updateProfile({
+    currentXP: newXP,
+    currentLevel: newLevel,
   })
 }
 
@@ -74,6 +74,6 @@ export async function subtractXP(amount: number): Promise<Profile> {
 
   return updateProfile({
     currentXP: newXP,
-    currentLevel: newLevel
+    currentLevel: newLevel,
   })
 }

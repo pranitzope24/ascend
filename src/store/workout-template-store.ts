@@ -1,12 +1,18 @@
 import { create } from "zustand"
-import { getAll, create as createTemplateApi, update as updateTemplateApi, deleteTemplate as deleteTemplateApi, duplicate as duplicateTemplateApi } from "@/features/workouts/services/template-service"
+import {
+  getAll,
+  create as createTemplateApi,
+  update as updateTemplateApi,
+  deleteTemplate as deleteTemplateApi,
+  duplicate as duplicateTemplateApi,
+} from "@/features/workouts/services/template-service"
 import type { WorkoutTemplate, WorkoutTemplateFormValues } from "@/features/workouts/types"
 
 interface WorkoutTemplateState {
   templates: WorkoutTemplate[]
   isLoading: boolean
   error: string | null
-  
+
   loadTemplates: () => Promise<void>
   createTemplate: (values: WorkoutTemplateFormValues) => Promise<WorkoutTemplate>
   updateTemplate: (id: string, values: WorkoutTemplateFormValues) => Promise<WorkoutTemplate>
@@ -79,5 +85,5 @@ export const useWorkoutTemplateStore = create<WorkoutTemplateState>((set, get) =
       set({ error: messageFor(error) })
       throw error
     }
-  }
+  },
 }))

@@ -1,5 +1,8 @@
 import { create } from "zustand"
-import { search as searchExercises, getAllGroupedByInitial } from "@/features/workouts/services/exercise-service"
+import {
+  search as searchExercises,
+  getAllGroupedByInitial,
+} from "@/features/workouts/services/exercise-service"
 import type { ExerciseDefinition } from "@/features/workouts/types"
 
 interface ExerciseState {
@@ -7,7 +10,7 @@ interface ExerciseState {
   groupedExercises: Record<string, ExerciseDefinition[]>
   isLoading: boolean
   error: string | null
-  
+
   initialize: () => Promise<void>
   search: (query: string) => Promise<void>
 }

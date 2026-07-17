@@ -80,7 +80,7 @@ const HABITS = [
     color: "#ec4899", // Pink
     xp: 10,
     completionRate: 0.4,
-  }
+  },
 ]
 
 async function main() {
@@ -97,7 +97,7 @@ async function main() {
     data: {
       email: "dummy@example.com",
       name: "Dummy User",
-    }
+    },
   })
 
   console.log("Seeding profile...")
@@ -107,14 +107,14 @@ async function main() {
       currentLevel: 5,
       currentXP: 450,
       coins: 120,
-    }
+    },
   })
 
   console.log("Seeding habits and logs...")
-  
+
   const today = new Date()
   today.setHours(0, 0, 0, 0)
-  
+
   // Generate dates for the last 365 days
   const dates: Date[] = []
   for (let i = 365; i >= 0; i--) {
@@ -125,7 +125,7 @@ async function main() {
 
   for (const habitData of HABITS) {
     const { completionRate, ...hData } = habitData
-    
+
     let currentStreak = 0
     let longestStreak = 0
     let lastCompletedDate: string | null = null
@@ -137,19 +137,19 @@ async function main() {
       // For weekend meal prep, make it much higher on weekends
       let chance = completionRate
       if (hData.title === "Weekend meal prep") {
-        chance = (d.getDay() === 0 || d.getDay() === 6) ? 0.8 : 0.05
+        chance = d.getDay() === 0 || d.getDay() === 6 ? 0.8 : 0.05
       }
 
       const completed = Math.random() < chance
       const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`
-      
+
       if (completed) {
         currentStreak++
         if (currentStreak > longestStreak) {
           longestStreak = currentStreak
         }
         lastCompletedDate = dateStr
-        
+
         logsToCreate.push({
           date: dateStr,
           completed: true,
@@ -173,20 +173,22 @@ async function main() {
         lastCompletedDate,
         createdAt: dates[0], // set created to a year ago
         userId: dummyUser.id,
-      }
+      },
     })
 
     // Create all logs
     if (logsToCreate.length > 0) {
       await prisma.habitLog.createMany({
-        data: logsToCreate.map(log => ({
+        data: logsToCreate.map((log) => ({
           ...log,
           habitId: createdHabit.id,
-        }))
+        })),
       })
     }
 
-    console.log(`Created habit: ${hData.title} (Streak: ${currentStreak}, Longest: ${longestStreak})`)
+    console.log(
+      `Created habit: ${hData.title} (Streak: ${currentStreak}, Longest: ${longestStreak})`
+    )
   }
 
   console.log("Database seeded successfully! 🎉")
@@ -200,4 +202,3 @@ main()
   .finally(async () => {
     await prisma.$disconnect()
   })
-

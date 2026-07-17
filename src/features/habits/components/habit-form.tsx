@@ -17,12 +17,7 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { IconPicker } from "@/features/habits/components/icon-picker"
-import {
-  DEFAULT_XP,
-  HABIT_CATEGORIES,
-  HabitDifficulty,
-  type Habit,
-} from "@/features/habits/types"
+import { DEFAULT_XP, HABIT_CATEGORIES, HabitDifficulty, type Habit } from "@/features/habits/types"
 import { habitSchema, type HabitSchemaValues } from "@/features/habits/validation/habit-schema"
 import { useHabitStore } from "@/store/habit-store"
 import { cn } from "@/lib/utils"
@@ -64,7 +59,7 @@ export function HabitForm({ habit }: HabitFormProps) {
             difficulty: habit.difficulty,
             xp: habit.xp,
           }
-        : emptyHabit,
+        : emptyHabit
     )
   }, [form, habit])
 
@@ -87,7 +82,13 @@ export function HabitForm({ habit }: HabitFormProps) {
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <FieldLabel htmlFor="habit-title">Name</FieldLabel>
-              <Input {...field} aria-invalid={fieldState.invalid} autoFocus id="habit-title" placeholder="Read for 20 minutes" />
+              <Input
+                {...field}
+                aria-invalid={fieldState.invalid}
+                autoFocus
+                id="habit-title"
+                placeholder="Read for 20 minutes"
+              />
               <FieldError errors={[fieldState.error]} />
             </Field>
           )}
@@ -99,7 +100,12 @@ export function HabitForm({ habit }: HabitFormProps) {
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <FieldLabel htmlFor="habit-description">Description</FieldLabel>
-              <Textarea {...field} aria-invalid={fieldState.invalid} id="habit-description" placeholder="Optional context or a simple reminder" />
+              <Textarea
+                {...field}
+                aria-invalid={fieldState.invalid}
+                id="habit-description"
+                placeholder="Optional context or a simple reminder"
+              />
               <FieldError errors={[fieldState.error]} />
             </Field>
           )}
@@ -128,7 +134,10 @@ export function HabitForm({ habit }: HabitFormProps) {
                   <button
                     aria-label={`Use color ${color}`}
                     aria-pressed={field.value === color}
-                    className={cn("size-8 rounded-full border-2 border-background ring-offset-2", field.value === color && "ring-2 ring-ring")}
+                    className={cn(
+                      "border-background size-8 rounded-full border-2 ring-offset-2",
+                      field.value === color && "ring-ring ring-2"
+                    )}
                     key={color}
                     onClick={() => field.onChange(color)}
                     style={{ backgroundColor: color }}
@@ -145,14 +154,18 @@ export function HabitForm({ habit }: HabitFormProps) {
             control={form.control}
             name="category"
             render={({ field, fieldState }) => (
-               <Field data-invalid={fieldState.invalid}>
+              <Field data-invalid={fieldState.invalid}>
                 <FieldLabel>Category</FieldLabel>
                 <Select onValueChange={field.onChange} value={field.value}>
                   <SelectTrigger aria-invalid={fieldState.invalid} className="w-full">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {HABIT_CATEGORIES.map((category) => <SelectItem key={category} value={category}>{category}</SelectItem>)}
+                    {HABIT_CATEGORIES.map((category) => (
+                      <SelectItem key={category} value={category}>
+                        {category}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <FieldError errors={[fieldState.error]} />
@@ -171,13 +184,20 @@ export function HabitForm({ habit }: HabitFormProps) {
                     if (!value) return
                     const difficulty = value as HabitDifficulty
                     field.onChange(difficulty)
-                    if (!form.formState.dirtyFields.xp) form.setValue("xp", DEFAULT_XP[difficulty], { shouldValidate: true })
+                    if (!form.formState.dirtyFields.xp)
+                      form.setValue("xp", DEFAULT_XP[difficulty], { shouldValidate: true })
                   }}
                   value={field.value}
                 >
-                  <SelectTrigger aria-invalid={fieldState.invalid} className="w-full"><SelectValue /></SelectTrigger>
+                  <SelectTrigger aria-invalid={fieldState.invalid} className="w-full">
+                    <SelectValue />
+                  </SelectTrigger>
                   <SelectContent>
-                    {Object.values(HabitDifficulty).map((difficulty) => <SelectItem key={difficulty} value={difficulty}>{difficulty}</SelectItem>)}
+                    {Object.values(HabitDifficulty).map((difficulty) => (
+                      <SelectItem key={difficulty} value={difficulty}>
+                        {difficulty}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
                 <FieldError errors={[fieldState.error]} />
@@ -206,9 +226,11 @@ export function HabitForm({ habit }: HabitFormProps) {
         />
         <FieldError errors={[form.formState.errors.root]} />
       </FieldGroup>
-      
+
       <div className="mt-8 flex justify-end gap-3 border-t pt-5">
-        <Button onClick={() => router.back()} type="button" variant="outline">Cancel</Button>
+        <Button onClick={() => router.back()} type="button" variant="outline">
+          Cancel
+        </Button>
         <Button disabled={form.formState.isSubmitting} form="habit-form" type="submit">
           {form.formState.isSubmitting ? "Saving…" : habit ? "Save changes" : "Create habit"}
         </Button>

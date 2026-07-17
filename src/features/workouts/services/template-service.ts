@@ -2,7 +2,11 @@
 
 import { prisma } from "@/lib/prisma"
 import { auth } from "@/auth"
-import type { WorkoutTemplate, WorkoutTemplateFormValues, TemplateExercise } from "@/features/workouts/types"
+import type {
+  WorkoutTemplate,
+  WorkoutTemplateFormValues,
+  TemplateExercise,
+} from "@/features/workouts/types"
 import { Prisma } from "@prisma/client"
 
 async function getUserId() {
@@ -17,8 +21,8 @@ export async function getAll(): Promise<WorkoutTemplate[]> {
     where: { userId },
     orderBy: { updatedAt: "desc" },
   })
-  
-  return templates.map(t => ({
+
+  return templates.map((t) => ({
     ...t,
     exercises: t.exercises as unknown as TemplateExercise[],
   }))
@@ -29,9 +33,9 @@ export async function getById(id: string): Promise<WorkoutTemplate | null> {
   const template = await prisma.workoutTemplate.findFirst({
     where: { id, userId },
   })
-  
+
   if (!template) return null
-  
+
   return {
     ...template,
     exercises: template.exercises as unknown as TemplateExercise[],
@@ -41,7 +45,7 @@ export async function getById(id: string): Promise<WorkoutTemplate | null> {
 export async function create(values: WorkoutTemplateFormValues): Promise<WorkoutTemplate> {
   const userId = await getUserId()
   const id = crypto.randomUUID()
-  
+
   const template = await prisma.workoutTemplate.create({
     data: {
       id,
@@ -50,22 +54,25 @@ export async function create(values: WorkoutTemplateFormValues): Promise<Workout
       description: values.description || null,
       exercises: values.exercises as unknown as Prisma.InputJsonValue,
       version: 1,
-    }
+    },
   })
-  
+
   return {
     ...template,
     exercises: template.exercises as unknown as TemplateExercise[],
   }
 }
 
-export async function update(id: string, values: WorkoutTemplateFormValues): Promise<WorkoutTemplate> {
+export async function update(
+  id: string,
+  values: WorkoutTemplateFormValues
+): Promise<WorkoutTemplate> {
   const userId = await getUserId()
-  
+
   const existing = await prisma.workoutTemplate.findFirst({
-    where: { id, userId }
+    where: { id, userId },
   })
-  
+
   if (!existing) {
     throw new Error("Template not found or unauthorized")
   }
@@ -77,9 +84,9 @@ export async function update(id: string, values: WorkoutTemplateFormValues): Pro
       description: values.description || null,
       exercises: values.exercises as unknown as Prisma.InputJsonValue,
       version: existing.version + 1,
-    }
+    },
   })
-  
+
   return {
     ...updated,
     exercises: updated.exercises as unknown as TemplateExercise[],
@@ -88,27 +95,27 @@ export async function update(id: string, values: WorkoutTemplateFormValues): Pro
 
 export async function deleteTemplate(id: string): Promise<void> {
   const userId = await getUserId()
-  
+
   const existing = await prisma.workoutTemplate.findFirst({
-    where: { id, userId }
+    where: { id, userId },
   })
-  
+
   if (!existing) {
     throw new Error("Template not found or unauthorized")
   }
 
   await prisma.workoutTemplate.delete({
-    where: { id }
+    where: { id },
   })
 }
 
 export async function duplicate(id: string): Promise<WorkoutTemplate> {
   const userId = await getUserId()
-  
+
   const existing = await prisma.workoutTemplate.findFirst({
-    where: { id, userId }
+    where: { id, userId },
   })
-  
+
   if (!existing) {
     throw new Error("Template not found or unauthorized")
   }
@@ -123,9 +130,9 @@ export async function duplicate(id: string): Promise<WorkoutTemplate> {
       description: existing.description,
       exercises: existing.exercises as unknown as Prisma.InputJsonValue,
       version: 1,
-    }
+    },
   })
-  
+
   return {
     ...duplicated,
     exercises: duplicated.exercises as unknown as TemplateExercise[],

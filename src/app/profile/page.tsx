@@ -18,13 +18,13 @@ export default async function ProfilePage() {
 
   return (
     <PageShell>
-      <PageHeader 
+      <PageHeader
         title={
           <div className="flex items-center gap-2">
             <SidebarTrigger className="-ml-1" />
             <span>Profile</span>
           </div>
-        } 
+        }
       />
       <ProfileView data={data} />
     </PageShell>

@@ -39,7 +39,7 @@ export async function updateHabit(id: string, values: HabitFormValues): Promise<
   const userId = await getUserId()
   const existing = await prisma.habit.findFirst({ where: { id, userId } })
   if (!existing) throw new Error("Unauthorized or not found")
-  
+
   const habit = await prisma.habit.update({
     where: { id },
     data: values,
@@ -86,7 +86,7 @@ export async function getAllHabitLogs(): Promise<HabitLog[]> {
   // Join logs with habits to filter by user
   const logs = await prisma.habitLog.findMany({
     where: {
-      habit: { userId }
+      habit: { userId },
     },
     orderBy: { date: "asc" },
   })
@@ -96,32 +96,39 @@ export async function getAllHabitLogs(): Promise<HabitLog[]> {
 export async function getLogsForDate(date: string): Promise<Record<string, HabitLog>> {
   const userId = await getUserId()
   const logs = await prisma.habitLog.findMany({
-    where: { 
+    where: {
       date,
-      habit: { userId }
+      habit: { userId },
     },
   })
-  
-  return logs.reduce((acc: any, log: any) => {
-    acc[log.habitId] = log as unknown as HabitLog
-    return acc
-  }, {} as Record<string, HabitLog>)
+
+  return logs.reduce(
+    (acc: any, log: any) => {
+      acc[log.habitId] = log as unknown as HabitLog
+      return acc
+    },
+    {} as Record<string, HabitLog>
+  )
 }
 
-export async function toggleHabitCompletion(habitId: string, date: string, completed: boolean): Promise<{ log: HabitLog, habit: Habit | null }> {
+export async function toggleHabitCompletion(
+  habitId: string,
+  date: string,
+  completed: boolean
+): Promise<{ log: HabitLog; habit: Habit | null }> {
   const userId = await getUserId()
   const habit = await prisma.habit.findFirst({ where: { id: habitId, userId } })
   if (!habit) throw new Error("Unauthorized or not found")
 
   const completedAt = completed ? new Date() : null
-  
+
   // Upsert the log
   const log = await prisma.habitLog.upsert({
     where: {
       habitId_date: {
         habitId,
         date,
-      }
+      },
     },
     update: {
       completed,
@@ -132,7 +139,7 @@ export async function toggleHabitCompletion(habitId: string, date: string, compl
       date,
       completed,
       completedAt,
-    }
+    },
   })
 
   // Calculate Streak
@@ -152,19 +159,20 @@ export async function toggleHabitCompletion(habitId: string, date: string, compl
       // Missed a day or more, restart streak
       newStreak = 1
     }
-    
+
     const newLongestStreak = Math.max(habit.longestStreak, newStreak)
-    const newLastCompletedDate = (!habit.lastCompletedDate || date > habit.lastCompletedDate) ? date : habit.lastCompletedDate
-    
+    const newLastCompletedDate =
+      !habit.lastCompletedDate || date > habit.lastCompletedDate ? date : habit.lastCompletedDate
+
     await prisma.habit.update({
       where: { id: habitId },
       data: {
         currentStreak: newStreak,
         longestStreak: newLongestStreak,
         lastCompletedDate: newLastCompletedDate,
-      }
+      },
     })
-    
+
     const h = await prisma.habit.findUnique({ where: { id: habitId } })
     if (h) updatedHabit = h as Habit
   } else {
@@ -172,7 +180,7 @@ export async function toggleHabitCompletion(habitId: string, date: string, compl
     // We must recount the streak backwards from the day before `date`
     const logs = await prisma.habitLog.findMany({
       where: { habitId, completed: true, date: { lt: date } },
-      orderBy: { date: 'desc' }
+      orderBy: { date: "desc" },
     })
 
     let computedStreak = 0
@@ -195,13 +203,13 @@ export async function toggleHabitCompletion(habitId: string, date: string, compl
       where: { id: habitId },
       data: {
         currentStreak: computedStreak,
-        lastCompletedDate: lastDateStr
-      }
+        lastCompletedDate: lastDateStr,
+      },
     })
-    
+
     const h = await prisma.habit.findUnique({ where: { id: habitId } })
     if (h) updatedHabit = h as Habit
   }
-  
+
   return { log: log as unknown as HabitLog, habit: updatedHabit as unknown as Habit }
 }

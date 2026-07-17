@@ -2,7 +2,7 @@ import { WorkoutSession } from "@/features/workouts/components/workout-session"
 
 export default function WorkoutLogPage() {
   return (
-    <div className="min-h-dvh bg-background w-full max-w-md mx-auto">
+    <div className="bg-background mx-auto min-h-dvh w-full max-w-md">
       <WorkoutSession />
     </div>
   )

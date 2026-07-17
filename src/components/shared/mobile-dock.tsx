@@ -18,9 +18,9 @@ export function MobileDock() {
   ]
 
   return (
-    <div className="fixed bottom-6 left-0 right-0 z-50 flex justify-center items-center md:hidden pointer-events-none px-4">
+    <div className="pointer-events-none fixed right-0 bottom-6 left-0 z-50 flex items-center justify-center px-4 md:hidden">
       {/* Main Pill */}
-      <div className="flex items-center gap-0.5 bg-background border rounded-full p-1 shadow-xl pointer-events-auto shadow-black/5 dark:shadow-black/50">
+      <div className="bg-background pointer-events-auto flex items-center gap-0.5 rounded-full border p-1 shadow-xl shadow-black/5 dark:shadow-black/50">
         {links.map((link) => {
           const isActive = pathname === link.href
           const Icon = link.icon
@@ -29,16 +29,14 @@ export function MobileDock() {
               key={link.href}
               href={link.href}
               className={cn(
-                "flex flex-col items-center justify-center gap-0.5 w-[56px] h-12 rounded-full transition-colors",
+                "flex h-12 w-[56px] flex-col items-center justify-center gap-0.5 rounded-full transition-colors",
                 isActive
                   ? "bg-accent text-primary"
                   : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
               )}
             >
               <Icon className="size-[18px]" />
-              <span className="text-[9px] font-medium tracking-wide">
-                {link.label}
-              </span>
+              <span className="text-[9px] font-medium tracking-wide">{link.label}</span>
             </Link>
           )
         })}

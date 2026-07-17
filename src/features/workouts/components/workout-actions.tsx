@@ -49,7 +49,7 @@ export function WorkoutActions() {
       muscles: ex.muscles || [],
       sets: ex.sets || [],
     }))
-    
+
     startWorkout(template.id, template.version, initialExercises)
     router.push("/workouts/log")
   }
@@ -57,7 +57,11 @@ export function WorkoutActions() {
   const handleStartHistorical = () => {
     const date = new Date(histDate)
     const durSecs = parseInt(histDuration) * 60
-    startWorkout(undefined, undefined, [], { isHistorical: true, startedAt: date, duration: durSecs || 3600 })
+    startWorkout(undefined, undefined, [], {
+      isHistorical: true,
+      startedAt: date,
+      duration: durSecs || 3600,
+    })
     setHistoricalOpen(false)
     router.push("/workouts/log")
   }
@@ -117,7 +121,11 @@ export function WorkoutActions() {
         description="Record a workout you completed previously."
         footer={
           <div className="flex w-full gap-2 sm:justify-end">
-            <Button variant="outline" onClick={() => setHistoricalOpen(false)} className="flex-1 sm:flex-none">
+            <Button
+              variant="outline"
+              onClick={() => setHistoricalOpen(false)}
+              className="flex-1 sm:flex-none"
+            >
               Cancel
             </Button>
             <Button onClick={handleStartHistorical} className="flex-1 sm:flex-none">
@@ -129,18 +137,18 @@ export function WorkoutActions() {
         <div className="space-y-4 py-4">
           <div className="space-y-2">
             <Label htmlFor="historical-date">Date & Time</Label>
-            <Input 
-              id="historical-date" 
-              type="datetime-local" 
+            <Input
+              id="historical-date"
+              type="datetime-local"
               value={histDate}
               onChange={(e) => setHistDate(e.target.value)}
             />
           </div>
           <div className="space-y-2">
             <Label htmlFor="historical-duration">Estimated Duration (minutes)</Label>
-            <Input 
-              id="historical-duration" 
-              type="number" 
+            <Input
+              id="historical-duration"
+              type="number"
               min="1"
               value={histDuration}
               onChange={(e) => setHistDuration(e.target.value)}

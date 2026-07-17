@@ -44,13 +44,18 @@ export function HabitsPage() {
       <PageHeader
         actions={
           <>
-          <Button aria-label="Settings" onClick={() => setSettingsOpen(true)} size="icon" variant="ghost">
-            <Settings className="size-5" />
-          </Button>
-          <ModeToggle />
-          <Button aria-label="Add habit" onClick={openCreate}>
-            <Plus data-icon="inline-start" /> <span className="hidden sm:inline">Add habit</span>
-          </Button>
+            <Button
+              aria-label="Settings"
+              onClick={() => setSettingsOpen(true)}
+              size="icon"
+              variant="ghost"
+            >
+              <Settings className="size-5" />
+            </Button>
+            <ModeToggle />
+            <Button aria-label="Add habit" onClick={openCreate}>
+              <Plus data-icon="inline-start" /> <span className="hidden sm:inline">Add habit</span>
+            </Button>
           </>
         }
         description="Manage your routines and habits."
@@ -63,25 +68,30 @@ export function HabitsPage() {
       />
 
       {error && (
-        <div className="mb-5 rounded-2xl bg-destructive/10 px-4 py-3 text-sm text-destructive" role="alert">
+        <div
+          className="bg-destructive/10 text-destructive mb-5 rounded-2xl px-4 py-3 text-sm"
+          role="alert"
+        >
           {error}
         </div>
       )}
 
       {isLoading ? (
         <div className="space-y-3" aria-label="Loading habits">
-          {[0, 1, 2].map((item) => <div className="h-24 animate-pulse rounded-2xl bg-muted" key={item} />)}
+          {[0, 1, 2].map((item) => (
+            <div className="bg-muted h-24 animate-pulse rounded-2xl" key={item} />
+          ))}
         </div>
       ) : habits.length ? (
         <div className="grid gap-3">
           {habits.map((habit) => (
-            <HabitCard 
-              habit={habit} 
-              key={habit.id} 
+            <HabitCard
+              habit={habit}
+              key={habit.id}
               isCompleted={logs[habit.id]?.completed ?? false}
               onToggle={(item) => void toggleHabit(item.id)}
-              onArchive={(item) => void archiveHabit(item.id)} 
-              onEdit={openEdit} 
+              onArchive={(item) => void archiveHabit(item.id)}
+              onEdit={openEdit}
               onViewHeatmap={setHeatmapHabit}
             />
           ))}
@@ -90,7 +100,11 @@ export function HabitsPage() {
         <HabitEmptyState onCreate={openCreate} />
       )}
 
-      <HabitHeatmapDialog habit={heatmapHabit} open={!!heatmapHabit} onOpenChange={(o) => !o && setHeatmapHabit(null)} />
+      <HabitHeatmapDialog
+        habit={heatmapHabit}
+        open={!!heatmapHabit}
+        onOpenChange={(o) => !o && setHeatmapHabit(null)}
+      />
       <SettingsDialog onOpenChange={setSettingsOpen} open={settingsOpen} />
     </PageShell>
   )

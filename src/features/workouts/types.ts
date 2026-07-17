@@ -5,7 +5,31 @@ import { z } from "zod"
 // -----------------------------------------------------------------------------
 
 export const MUSCLE_SLUGS = [
-  "abs", "adductors", "ankles", "biceps", "calves", "chest", "deltoids", "feet", "forearm", "gluteal", "hamstring", "hands", "hair", "head", "knees", "lower-back", "neck", "obliques", "quadriceps", "tibialis", "trapezius", "triceps", "upper-back", "cardio", "other"
+  "abs",
+  "adductors",
+  "ankles",
+  "biceps",
+  "calves",
+  "chest",
+  "deltoids",
+  "feet",
+  "forearm",
+  "gluteal",
+  "hamstring",
+  "hands",
+  "hair",
+  "head",
+  "knees",
+  "lower-back",
+  "neck",
+  "obliques",
+  "quadriceps",
+  "tibialis",
+  "trapezius",
+  "triceps",
+  "upper-back",
+  "cardio",
+  "other",
 ] as const
 
 export type MuscleSlug = (typeof MUSCLE_SLUGS)[number]

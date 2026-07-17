@@ -14,20 +14,20 @@ export default async function RecordWeightPage() {
 
   return (
     <PageShell>
-      <PageHeader 
+      <PageHeader
         title={
           <div className="flex items-center gap-2">
             <Link href="/profile/weight">
               <Button variant="ghost" size="icon" className="-ml-2">
-                <ArrowLeft className="w-5 h-5" />
+                <ArrowLeft className="h-5 w-5" />
               </Button>
             </Link>
             <span>Record Weight</span>
           </div>
         }
       />
-      <div className="flex-1 p-4 md:p-6 max-w-2xl mx-auto w-full">
-        <div className="border rounded-xl bg-card p-4 sm:p-6 shadow-sm">
+      <div className="mx-auto w-full max-w-2xl flex-1 p-4 md:p-6">
+        <div className="bg-card rounded-xl border p-4 shadow-sm sm:p-6">
           <WeightRecordFormWrapper />
         </div>
       </div>

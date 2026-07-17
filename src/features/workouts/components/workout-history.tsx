@@ -15,12 +15,12 @@ export function WorkoutHistory() {
   }, [loadSessions])
 
   if (isLoading) {
-    return <div className="p-8 text-center text-muted-foreground">Loading history...</div>
+    return <div className="text-muted-foreground p-8 text-center">Loading history...</div>
   }
 
   if (sessions.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[40vh] space-y-4">
+      <div className="flex min-h-[40vh] flex-col items-center justify-center space-y-4">
         <p className="text-muted-foreground">No workouts completed yet.</p>
       </div>
     )
@@ -38,14 +38,14 @@ export function WorkoutHistory() {
     <div className="space-y-8">
       {Object.entries(grouped).map(([month, monthSessions]) => (
         <div key={month} className="space-y-4">
-          <h3 className="font-semibold text-lg px-1 sticky top-14 bg-background/90 py-2 backdrop-blur-sm z-10">
+          <h3 className="bg-background/90 sticky top-14 z-10 px-1 py-2 text-lg font-semibold backdrop-blur-sm">
             {month}
           </h3>
           <div className="flex flex-col gap-3">
             {monthSessions.map((session) => (
-              <WorkoutCard 
-                key={session.id} 
-                session={session} 
+              <WorkoutCard
+                key={session.id}
+                session={session}
                 onClick={() => router.push(`/workouts/history/${session.id}`)}
               />
             ))}

@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
     const to = searchParams.get("to")
 
     const where: any = { userId: session.user.id }
-    
+
     if (from || to) {
       where.recordedAt = {}
       if (from) where.recordedAt.gte = new Date(from)
@@ -23,13 +23,13 @@ export async function GET(req: NextRequest) {
 
     const logs = await prisma.bodyWeightLog.findMany({
       where,
-      orderBy: { recordedAt: "asc" }
+      orderBy: { recordedAt: "asc" },
     })
 
     // Map Prisma Decimal to number so it serializes properly via JSON
-    const serializedLogs = logs.map(log => ({
+    const serializedLogs = logs.map((log) => ({
       ...log,
-      weight: Number(log.weight)
+      weight: Number(log.weight),
     }))
 
     return NextResponse.json(serializedLogs)
@@ -58,17 +58,23 @@ export async function POST(req: NextRequest) {
         userId: session.user.id,
         weight,
         recordedAt: new Date(recordedAt),
-        note
-      }
+        note,
+      },
     })
 
-    return NextResponse.json({
-      ...log,
-      weight: Number(log.weight)
-    }, { status: 201 })
+    return NextResponse.json(
+      {
+        ...log,
+        weight: Number(log.weight),
+      },
+      { status: 201 }
+    )
   } catch (error: any) {
-    if (error.code === 'P2002') {
-      return NextResponse.json({ error: "A log for this exact time already exists" }, { status: 409 })
+    if (error.code === "P2002") {
+      return NextResponse.json(
+        { error: "A log for this exact time already exists" },
+        { status: 409 }
+      )
     }
     console.error("POST /api/body-weight error:", error)
     return NextResponse.json({ error: "Failed to create log" }, { status: 500 })

@@ -16,7 +16,7 @@
       },
       {
         "slug": "triceps",
-        "contribution": 0.60
+        "contribution": 0.6
       },
       {
         "slug": "trapezius",
@@ -24,7 +24,7 @@
       },
       {
         "slug": "chest",
-        "contribution": 0.20
+        "contribution": 0.2
       }
     ]
   },
@@ -49,7 +49,7 @@
       },
       {
         "slug": "triceps",
-        "contribution": 0.40
+        "contribution": 0.4
       }
     ]
   },
@@ -120,7 +120,7 @@
       },
       {
         "slug": "trapezius",
-        "contribution": 0.30
+        "contribution": 0.3
       }
     ]
   },
@@ -242,7 +242,7 @@
       },
       {
         "slug": "forearm",
-        "contribution": 0.40
+        "contribution": 0.4
       }
     ]
   },
@@ -275,7 +275,7 @@
       },
       {
         "slug": "deltoids",
-        "contribution": 0.20
+        "contribution": 0.2
       }
     ]
   },
@@ -300,11 +300,11 @@
       },
       {
         "slug": "deltoids",
-        "contribution": 0.70
+        "contribution": 0.7
       },
       {
         "slug": "biceps",
-        "contribution": 0.40
+        "contribution": 0.4
       },
       {
         "slug": "forearm",
@@ -329,7 +329,7 @@
       },
       {
         "slug": "biceps",
-        "contribution": 0.50
+        "contribution": 0.5
       },
       {
         "slug": "trapezius",
@@ -341,7 +341,7 @@
       },
       {
         "slug": "lower-back",
-        "contribution": 0.30
+        "contribution": 0.3
       },
       {
         "slug": "forearm",
@@ -370,7 +370,7 @@
       },
       {
         "slug": "hamstring",
-        "contribution": 0.80
+        "contribution": 0.8
       },
       {
         "slug": "quadriceps",
@@ -378,11 +378,11 @@
       },
       {
         "slug": "trapezius",
-        "contribution": 0.50
+        "contribution": 0.5
       },
       {
         "slug": "upper-back",
-        "contribution": 0.40
+        "contribution": 0.4
       },
       {
         "slug": "forearm",
@@ -444,7 +444,7 @@
       },
       {
         "slug": "calves",
-        "contribution": 0.30
+        "contribution": 0.3
       }
     ]
   },
@@ -486,19 +486,19 @@
       },
       {
         "slug": "adductors",
-        "contribution": 0.50
+        "contribution": 0.5
       },
       {
         "slug": "lower-back",
-        "contribution": 0.40
+        "contribution": 0.4
       },
       {
         "slug": "hamstring",
-        "contribution": 0.30
+        "contribution": 0.3
       },
       {
         "slug": "calves",
-        "contribution": 0.20
+        "contribution": 0.2
       },
       {
         "slug": "abs",
@@ -535,7 +535,7 @@
       },
       {
         "slug": "calves",
-        "contribution": 0.20
+        "contribution": 0.2
       }
     ]
   },

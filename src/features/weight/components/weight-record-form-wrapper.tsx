@@ -21,10 +21,10 @@ export function WeightRecordFormWrapper() {
   }, [id, logs.length, fetchLogs])
 
   if (!isReady) {
-    return <div className="p-8 text-center text-muted-foreground">Loading...</div>
+    return <div className="text-muted-foreground p-8 text-center">Loading...</div>
   }
 
-  const existingLog = id ? logs.find(log => log.id === id) : null
+  const existingLog = id ? logs.find((log) => log.id === id) : null
 
   return <WeightRecordForm existingLog={existingLog} />
 }

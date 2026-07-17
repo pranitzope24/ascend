@@ -21,9 +21,9 @@ export async function getSettings(): Promise<AppSettings> {
   const settings = await prisma.appSettings.findUnique({
     where: { userId },
   })
-  
+
   if (settings) return settings as AppSettings
-  
+
   const newSettings = await prisma.appSettings.create({
     data: { ...DEFAULT_SETTINGS, userId },
   })

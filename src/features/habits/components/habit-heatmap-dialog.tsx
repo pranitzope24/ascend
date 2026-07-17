@@ -29,10 +29,13 @@ export function HabitHeatmapDialog({ habit, open, onOpenChange }: HabitHeatmapDi
       setLoading(true)
       getHabitLogs(habit.id)
         .then((data: HabitLog[]) => {
-          const logMap = data.reduce((acc, log) => {
-            acc[log.date] = log.completed
-            return acc
-          }, {} as Record<string, boolean>)
+          const logMap = data.reduce(
+            (acc, log) => {
+              acc[log.date] = log.completed
+              return acc
+            },
+            {} as Record<string, boolean>
+          )
           setLogs(logMap)
         })
         .catch(console.error)
@@ -51,18 +54,18 @@ export function HabitHeatmapDialog({ habit, open, onOpenChange }: HabitHeatmapDi
   const weeksCount = mode === "yearly" ? 52 : mode === "monthly" ? 4 : 1
 
   // Generate weeks of history up to today
-  const weeks: { date: string, isFuture: boolean, dayOfWeek: number }[][] = []
+  const weeks: { date: string; isFuture: boolean; dayOfWeek: number }[][] = []
   const today = new Date()
   const currentDayOfWeek = today.getDay()
   const daysToSunday = currentDayOfWeek === 0 ? 0 : 7 - currentDayOfWeek
   const endDate = new Date(today)
   endDate.setDate(today.getDate() + daysToSunday) // Move to Sunday
-  
+
   const startDate = new Date(endDate)
-  startDate.setDate(endDate.getDate() - (weeksCount * 7) + 1) // Start on a Monday
-  
+  startDate.setDate(endDate.getDate() - weeksCount * 7 + 1) // Start on a Monday
+
   const iterDate = new Date(startDate)
-  
+
   const monthLabels: { label: string; index: number }[] = []
   let currentMonth = -1
 
@@ -73,20 +76,20 @@ export function HabitHeatmapDialog({ habit, open, onOpenChange }: HabitHeatmapDi
       weekDays.push({
         date: dateStr,
         isFuture: iterDate > today,
-        dayOfWeek: iterDate.getDay()
+        dayOfWeek: iterDate.getDay(),
       })
-      
+
       // Track months for labels
       if (d === 0) {
         if (iterDate.getMonth() !== currentMonth) {
           currentMonth = iterDate.getMonth()
           monthLabels.push({
             label: iterDate.toLocaleString("default", { month: "short" }),
-            index: w
+            index: w,
           })
         }
       }
-      
+
       iterDate.setDate(iterDate.getDate() + 1)
     }
     weeks.push(weekDays)
@@ -99,7 +102,7 @@ export function HabitHeatmapDialog({ habit, open, onOpenChange }: HabitHeatmapDi
       open={open}
       title={
         <div className="flex items-center gap-3">
-          <div 
+          <div
             className="flex size-8 items-center justify-center rounded-lg"
             style={{ backgroundColor: `${habit.color}20`, color: habit.color }}
           >
@@ -115,22 +118,30 @@ export function HabitHeatmapDialog({ habit, open, onOpenChange }: HabitHeatmapDi
           <div className="flex gap-6">
             <div className="flex flex-col">
               <span className="text-muted-foreground text-sm">Current Streak</span>
-              <span className="text-xl font-bold">{habit.currentStreak} <span className="text-sm font-normal text-muted-foreground">days</span></span>
+              <span className="text-xl font-bold">
+                {habit.currentStreak}{" "}
+                <span className="text-muted-foreground text-sm font-normal">days</span>
+              </span>
             </div>
             <div className="flex flex-col">
               <span className="text-muted-foreground text-sm">Longest Streak</span>
-              <span className="text-xl font-bold">{habit.longestStreak} <span className="text-sm font-normal text-muted-foreground">days</span></span>
+              <span className="text-xl font-bold">
+                {habit.longestStreak}{" "}
+                <span className="text-muted-foreground text-sm font-normal">days</span>
+              </span>
             </div>
           </div>
-          
-          <div className="flex bg-muted/50 p-1 rounded-lg">
+
+          <div className="bg-muted/50 flex rounded-lg p-1">
             {(["weekly", "monthly", "yearly"] as const).map((m) => (
               <button
                 key={m}
                 type="button"
                 className={cn(
-                  "px-3 py-1 text-xs font-medium rounded-md capitalize transition-colors",
-                  mode === m ? "bg-background shadow-sm" : "text-muted-foreground hover:text-foreground"
+                  "rounded-md px-3 py-1 text-xs font-medium capitalize transition-colors",
+                  mode === m
+                    ? "bg-background shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
                 )}
                 onClick={() => setMode(m)}
               >
@@ -142,24 +153,24 @@ export function HabitHeatmapDialog({ habit, open, onOpenChange }: HabitHeatmapDi
 
         {loading ? (
           <div className="flex h-32 items-center justify-center">
-            <Loader2 className="size-6 animate-spin text-muted-foreground" />
+            <Loader2 className="text-muted-foreground size-6 animate-spin" />
           </div>
         ) : (
           <div className="relative">
             {/* Scrollable Heatmap Container */}
-            <div 
+            <div
               ref={scrollRef}
               className={cn(
-                "overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-muted scrollbar-track-transparent scroll-smooth",
+                "scrollbar-thumb-muted scrollbar-thin scrollbar-track-transparent overflow-x-auto scroll-smooth pb-4",
                 mode !== "yearly" && "overflow-x-hidden"
               )}
             >
-              <HeatmapGrid 
-                habit={habit} 
-                mode={mode} 
-                weeks={weeks} 
-                logs={logs} 
-                monthLabels={monthLabels} 
+              <HeatmapGrid
+                habit={habit}
+                mode={mode}
+                weeks={weeks}
+                logs={logs}
+                monthLabels={monthLabels}
               />
             </div>
           </div>

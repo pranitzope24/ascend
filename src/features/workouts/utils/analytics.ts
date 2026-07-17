@@ -21,7 +21,9 @@ export function getSessionRawMuscleScores(session: WorkoutSession): Record<Muscl
   return scores
 }
 
-export function normalizeScores(rawScores: Record<string, number>): { slug: string; intensity: number }[] {
+export function normalizeScores(
+  rawScores: Record<string, number>
+): { slug: string; intensity: number }[] {
   const entries = Object.entries(rawScores).filter(([_, score]) => score > 0)
   if (entries.length === 0) return []
 
@@ -32,12 +34,14 @@ export function normalizeScores(rawScores: Record<string, number>): { slug: stri
     let intensity = Math.round(ratio * 5)
     if (intensity < 1) intensity = 1
     if (intensity > 5) intensity = 5
-    
+
     return { slug, intensity }
   })
 }
 
-export function computeIntensitiesForSessions(sessions: WorkoutSession[]): { slug: string; intensity: number }[] {
+export function computeIntensitiesForSessions(
+  sessions: WorkoutSession[]
+): { slug: string; intensity: number }[] {
   const aggregateScores = {} as Record<string, number>
 
   for (const session of sessions) {

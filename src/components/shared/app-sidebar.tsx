@@ -28,12 +28,20 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <>
       <Sidebar collapsible="icon" variant="inset" {...props}>
-        <SidebarHeader className="p-4 border-b">
+        <SidebarHeader className="border-b p-4">
           <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center shrink-0">
-              <Image src="/logo.svg" alt="Ascend Logo" width={32} height={32} className="h-8 w-8 object-contain rounded-md" />
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center">
+              <Image
+                src="/logo.svg"
+                alt="Ascend Logo"
+                width={32}
+                height={32}
+                className="h-8 w-8 rounded-md object-contain"
+              />
             </div>
-            <span className="font-bold tracking-tight text-lg group-data-[collapsible=icon]:hidden">Ascend</span>
+            <span className="text-lg font-bold tracking-tight group-data-[collapsible=icon]:hidden">
+              Ascend
+            </span>
           </div>
         </SidebarHeader>
         <SidebarContent>
@@ -97,7 +105,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarFooter>
         <SidebarRail />
       </Sidebar>
-      
+
       <SettingsDialog open={settingsOpen} onOpenChange={setSettingsOpen} />
     </>
   )

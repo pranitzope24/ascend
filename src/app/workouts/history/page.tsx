@@ -8,7 +8,12 @@ export default function HistoryPage() {
   return (
     <PageShell>
       <div className="mb-4">
-        <Button variant="ghost" size="sm" asChild className="-ml-3 text-muted-foreground hover:text-foreground">
+        <Button
+          variant="ghost"
+          size="sm"
+          asChild
+          className="text-muted-foreground hover:text-foreground -ml-3"
+        >
           <Link href="/workouts">
             <ChevronLeft className="mr-1 h-4 w-4" />
             Back to Workouts
