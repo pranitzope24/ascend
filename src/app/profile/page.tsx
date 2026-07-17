@@ -1,10 +1,21 @@
 import { PageShell, PageHeader } from "@/components/shared/page-shell"
-import { Button } from "@/components/ui/button"
-import { signOut } from "@/auth"
-import { LogOut } from "lucide-react"
+import { auth } from "@/auth"
+import { redirect } from "next/navigation"
 import { SidebarTrigger } from "@/components/ui/sidebar"
+import { getProfileStats } from "@/features/profile/services/profile"
+import { ProfileView } from "@/features/profile/components/profile-view"
 
-export default function ProfilePage() {
+export default async function ProfilePage() {
+  const session = await auth()
+  if (!session?.user?.id) {
+    redirect("/login")
+  }
+
+  const data = await getProfileStats(session.user.id)
+  if (!data) {
+    redirect("/login")
+  }
+
   return (
     <PageShell>
       <PageHeader 
@@ -14,21 +25,8 @@ export default function ProfilePage() {
             <span>Profile</span>
           </div>
         } 
-        description="Manage your account and settings." 
-        actions={
-          <form action={async () => {
-            "use server"
-            await signOut({ redirectTo: "/login" })
-          }}>
-            <Button type="submit" variant="destructive">
-              <LogOut data-icon="inline-start" /> <span className="hidden sm:inline">Logout</span>
-            </Button>
-          </form>
-        }
       />
-      <div className="flex-1 p-6">
-        <p className="text-muted-foreground text-sm">Profile implementation coming soon.</p>
-      </div>
+      <ProfileView data={data} />
     </PageShell>
   )
 }

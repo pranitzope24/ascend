@@ -20,6 +20,7 @@ model User {
   workoutTemplates  WorkoutTemplate[]
   workoutSessions   WorkoutSession[]
   workoutSettings   WorkoutSettings?
+  bodyWeightLogs    BodyWeightLog[]
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 }
@@ -146,4 +147,18 @@ model WorkoutSettings {
   user         User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   weightUnit   String @default("kg")
   distanceUnit String @default("km")
+}
+
+model BodyWeightLog {
+  id          String   @id @default(uuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  weight      Decimal  @db.Decimal(5,2)
+  recordedAt  DateTime
+  note        String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId, recordedAt(sort: Desc)])
+  @@unique([userId, recordedAt])
 }
