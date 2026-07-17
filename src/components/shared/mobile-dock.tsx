@@ -22,7 +22,7 @@ export function MobileDock() {
       {/* Main Pill */}
       <div className="bg-background pointer-events-auto flex items-center gap-0.5 rounded-full border p-1 shadow-xl shadow-black/5 dark:shadow-black/50">
         {links.map((link) => {
-          const isActive = pathname === link.href
+          const isActive = link.href === "/" ? pathname === "/" : pathname.startsWith(link.href)
           const Icon = link.icon
           return (
             <Link

@@ -1,10 +1,9 @@
 "use client"
 
-import { Dumbbell, Flame, LayoutDashboard, ListTodo, Settings, User } from "lucide-react"
+import { Dumbbell, Flame, LayoutDashboard, ListTodo, User } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { useState } from "react"
 
 import {
   Sidebar,
@@ -19,11 +18,9 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar"
-import { SettingsDialog } from "@/features/settings/components/settings-dialog"
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
-  const [settingsOpen, setSettingsOpen] = useState(false)
 
   return (
     <>
@@ -58,7 +55,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                  <SidebarMenuButton asChild isActive={pathname === "/habits"}>
+                  <SidebarMenuButton asChild isActive={pathname.startsWith("/habits")}>
                     <Link href="/habits">
                       <ListTodo />
                       <span>Habits</span>
@@ -66,7 +63,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                  <SidebarMenuButton asChild isActive={pathname === "/workouts"}>
+                  <SidebarMenuButton asChild isActive={pathname.startsWith("/workouts")}>
                     <Link href="/workouts">
                       <Dumbbell />
                       <span>Workouts</span>
@@ -74,7 +71,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                  <SidebarMenuButton asChild isActive={pathname === "/streaks"}>
+                  <SidebarMenuButton asChild isActive={pathname.startsWith("/streaks")}>
                     <Link href="/streaks">
                       <Flame />
                       <span>Streaks</span>
@@ -82,7 +79,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                  <SidebarMenuButton asChild isActive={pathname === "/profile"}>
+                  <SidebarMenuButton asChild isActive={pathname.startsWith("/profile")}>
                     <Link href="/profile">
                       <User />
                       <span>Profile</span>
@@ -93,20 +90,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
-        <SidebarFooter>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton onClick={() => setSettingsOpen(true)}>
-                <Settings />
-                <span>Settings</span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarFooter>
         <SidebarRail />
       </Sidebar>
-
-      <SettingsDialog open={settingsOpen} onOpenChange={setSettingsOpen} />
     </>
   )
 }
