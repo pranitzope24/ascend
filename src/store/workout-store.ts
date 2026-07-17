@@ -85,7 +85,7 @@ export const useWorkoutStore = create<WorkoutState>((set, get) => ({
     }
   },
 
-  startWorkout: (templateId, templateVersion, initialExercises = []) => {
+  startWorkout: (templateId, templateVersion, initialExercises = [], options) => {
     set({
       activeSessionId: crypto.randomUUID(),
       activeTemplateId: templateId || null,

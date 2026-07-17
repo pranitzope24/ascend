@@ -18,7 +18,7 @@ export default function LoginPage() {
           {/* <div className="mb-6 relative">
             <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full scale-125" />
             <img src="/ascend_light.png" alt="Ascend" className="h-24 w-24 rounded-[1.5rem] shadow-sm relative z-10 dark:hidden" />
-            <img src="/ascend_dark.png" alt="Ascend" className="h-24 w-24 rounded-[1.5rem] shadow-sm relative z-10 hidden dark:block" />
+            <img src="/logo.svg" alt="Ascend" className="h-24 w-24 rounded-[1.5rem] shadow-sm relative z-10 hidden dark:block" />
           </div> */}
           
           <h1 className="text-4xl font-bold tracking-wide mb-3 flex items-center justify-center gap-3">
