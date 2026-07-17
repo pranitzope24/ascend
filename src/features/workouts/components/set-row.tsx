@@ -2,7 +2,7 @@
 
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Trash2 } from "lucide-react"
+import { Trash2, Check } from "lucide-react"
 import type { WorkoutSet } from "@/features/workouts/types"
 
 interface SetRowProps {
@@ -47,12 +47,12 @@ export function SetRow({ set, index, onUpdate, onRemove }: SetRowProps) {
       {/* Actions */}
       <div className="flex items-center justify-end gap-1">
         <Button
-          variant={set.completed ? "default" : "secondary"}
-          size="sm"
-          className="h-8 w-8 p-0 shrink-0"
+          variant="outline"
+          size="icon"
+          className={`h-8 w-8 min-w-8 min-h-8 p-0 aspect-square rounded-full shrink-0 transition-colors border-2 ${set.completed ? 'bg-primary text-primary-foreground border-primary' : 'bg-transparent border-muted-foreground/30 hover:border-primary/50'}`}
           onClick={() => onUpdate({ completed: !set.completed })}
         >
-          {set.completed ? "✓" : ""}
+          {set.completed && <Check className="h-4 w-4" strokeWidth={3} />}
         </Button>
         {/* We use a hidden delete button, revealed on swipe in native apps, but here we can just show it or hide on mobile. Let's just show it small. */}
         {!set.completed && (

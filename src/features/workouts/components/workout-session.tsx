@@ -62,7 +62,7 @@ export function WorkoutSession() {
   return (
     <div className="flex flex-col min-h-[calc(100dvh-5rem)]">
       {/* Sticky Header */}
-      <div className="sticky top-0 z-30 bg-background/80 backdrop-blur-md border-b pb-4 pt-2 flex items-center justify-between px-2">
+      <div className="sticky top-0 z-30 bg-background/80 backdrop-blur-md border-b pb-2 pt-2 flex items-center justify-between px-2">
         <div className="flex flex-col">
           <h1 className="font-semibold text-lg">{activeSessionForm?.name || "Workout"}</h1>
           <span className="text-sm text-primary font-medium">{elapsed}</span>
@@ -74,7 +74,7 @@ export function WorkoutSession() {
       </div>
 
       {/* Scrollable Body */}
-      <div className="flex-1 py-6 space-y-6">
+      <div className="flex-1 pt-2 pb-6 px-3 lg:px-4 space-y-4">
         {activeExercises.length === 0 ? (
           <div className="text-center py-12 space-y-4">
             <h2 className="text-xl font-medium">Empty Workout</h2>
@@ -83,25 +83,27 @@ export function WorkoutSession() {
             </p>
           </div>
         ) : (
-          <div className="space-y-6">
+          <div className="flex flex-col gap-2">
             {activeExercises.map((exercise) => (
               <ExerciseCard key={exercise.id} exercise={exercise} />
             ))}
           </div>
         )}
 
-        <Button 
-          variant="outline" 
-          className="w-full h-12 text-primary font-medium bg-primary/5 hover:bg-primary/10 border-primary/20"
-          onClick={() => setPickerOpen(true)}
-        >
-          <Plus className="h-5 w-5 mr-2" />
-          Add Exercise
-        </Button>
+        <div className="pt-2">
+          <Button 
+            variant="outline" 
+            className="w-full h-10 text-primary font-medium bg-primary/5 hover:bg-primary/10 border-primary/20"
+            onClick={() => setPickerOpen(true)}
+          >
+            <Plus className="h-5 w-5 mr-2" />
+            Add Exercise
+          </Button>
+        </div>
       </div>
 
       {/* Bottom Actions */}
-      <div className="pt-4 border-t flex justify-center mb-8">
+      <div className="pt-2 border-t flex justify-center mb-4">
         <Button variant="ghost" className="text-destructive w-full max-w-xs" onClick={handleDiscard}>
           <X className="h-4 w-4 mr-2" />
           Discard Workout
