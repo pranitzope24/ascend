@@ -11,18 +11,23 @@ interface WorkoutTemplateCardProps {
 
 export function WorkoutTemplateCard({ template, onStart, onEdit }: WorkoutTemplateCardProps) {
   return (
-    <Card className="cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => onEdit(template)}>
+    <Card
+      className="hover:bg-muted/50 cursor-pointer transition-colors"
+      onClick={() => onEdit(template)}
+    >
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div>
             <CardTitle className="text-lg">{template.name}</CardTitle>
             {template.description && (
-              <CardDescription className="line-clamp-2 mt-1">{template.description}</CardDescription>
+              <CardDescription className="mt-1 line-clamp-2">
+                {template.description}
+              </CardDescription>
             )}
           </div>
         </div>
       </CardHeader>
-      <CardFooter className="flex items-center justify-between text-sm text-muted-foreground pt-0">
+      <CardFooter className="text-muted-foreground flex items-center justify-between pt-0 text-sm">
         <span>{template.exercises.length} Exercises</span>
         <Button
           size="sm"
@@ -32,7 +37,7 @@ export function WorkoutTemplateCard({ template, onStart, onEdit }: WorkoutTempla
           }}
           className="rounded-full"
         >
-          <Play className="h-4 w-4 mr-2" />
+          <Play className="mr-2 h-4 w-4" />
           Start
         </Button>
       </CardFooter>

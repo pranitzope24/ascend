@@ -16,14 +16,15 @@ interface IconPickerProps {
 export function IconPicker({ value, onChange }: IconPickerProps) {
   const [query, setQuery] = useState("")
   const icons = useMemo(
-    () => Object.keys(HABIT_ICONS).filter((name) => name.toLowerCase().includes(query.toLowerCase())),
-    [query],
+    () =>
+      Object.keys(HABIT_ICONS).filter((name) => name.toLowerCase().includes(query.toLowerCase())),
+    [query]
   )
 
   return (
     <div className="space-y-3">
       <div className="relative">
-        <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+        <Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2" />
         <Input
           aria-label="Search icons"
           className="pl-9"
@@ -37,7 +38,9 @@ export function IconPicker({ value, onChange }: IconPickerProps) {
           <Button
             aria-label={`Use ${name} icon`}
             aria-pressed={name === value}
-            className={cn(name === value && "bg-primary text-primary-foreground hover:bg-primary/90")}
+            className={cn(
+              name === value && "bg-primary text-primary-foreground hover:bg-primary/90"
+            )}
             key={name}
             onClick={() => onChange(name)}
             size="icon-lg"

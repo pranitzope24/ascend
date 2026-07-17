@@ -59,7 +59,7 @@ export const useWeightStore = create<WeightStore>((set, get) => ({
     try {
       const range = get().timeRange
       const startDate = getStartDateForRange(range)
-      
+
       let url = "/api/body-weight"
       if (startDate) {
         url += `?from=${startDate.toISOString()}`
@@ -68,7 +68,7 @@ export const useWeightStore = create<WeightStore>((set, get) => ({
       const res = await fetch(url)
       if (!res.ok) throw new Error("Failed to fetch logs")
       const data = await res.json()
-      
+
       set({ logs: data, isLoading: false })
     } catch (err: any) {
       set({ error: err.message, isLoading: false })
@@ -82,12 +82,12 @@ export const useWeightStore = create<WeightStore>((set, get) => ({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ weight, recordedAt, note }),
       })
-      
+
       if (!res.ok) {
         const data = await res.json()
         throw new Error(data.error || "Failed to add log")
       }
-      
+
       await get().fetchLogs()
     } catch (err: any) {
       set({ error: err.message })
@@ -102,12 +102,12 @@ export const useWeightStore = create<WeightStore>((set, get) => ({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ weight, recordedAt, note }),
       })
-      
+
       if (!res.ok) {
         const data = await res.json()
         throw new Error(data.error || "Failed to update log")
       }
-      
+
       await get().fetchLogs()
     } catch (err: any) {
       set({ error: err.message })

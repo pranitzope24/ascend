@@ -1,6 +1,15 @@
 import { create } from "zustand"
 
-import { listActiveHabits, getLogsForDate, createHabit, updateHabit, setHabitArchived, deleteHabit, getHabit, toggleHabitCompletion } from "@/features/habits/services/habit-service"
+import {
+  listActiveHabits,
+  getLogsForDate,
+  createHabit,
+  updateHabit,
+  setHabitArchived,
+  deleteHabit,
+  getHabit,
+  toggleHabitCompletion,
+} from "@/features/habits/services/habit-service"
 import { getProfile, addXP, subtractXP } from "@/features/habits/services/profile-service"
 import type { Habit, HabitFormValues, HabitLog, Profile } from "@/features/habits/types"
 
@@ -44,7 +53,7 @@ export const useHabitStore = create<HabitState>((set, get) => ({
       const [habits, logs, profile] = await Promise.all([
         listActiveHabits(),
         getLogsForDate(get().selectedDate),
-        getProfile()
+        getProfile(),
       ])
       set({ habits, logs, profile, isLoading: false })
     } catch (error) {
@@ -123,7 +132,7 @@ export const useHabitStore = create<HabitState>((set, get) => ({
   toggleHabit: async (habitId) => {
     const { selectedDate, logs } = get()
     const isCompleted = logs[habitId]?.completed ?? false
-    
+
     // Optimistic UI update
     set((state) => ({
       logs: {
@@ -134,21 +143,23 @@ export const useHabitStore = create<HabitState>((set, get) => ({
           date: selectedDate,
           completed: !isCompleted,
           completedAt: !isCompleted ? new Date() : null,
-          id: state.logs[habitId]?.id || "temp-log" // temporary id until server responds
-        }
-      }
+          id: state.logs[habitId]?.id || "temp-log", // temporary id until server responds
+        },
+      },
     }))
-    
+
     try {
-      const { log: updatedLog, habit: updatedHabitObj } = await toggleHabitCompletion(habitId, selectedDate, !isCompleted)
-      
+      const { log: updatedLog, habit: updatedHabitObj } = await toggleHabitCompletion(
+        habitId,
+        selectedDate,
+        !isCompleted
+      )
+
       let updatedProfile = get().profile
       if (updatedProfile) {
-        const habit = get().habits.find(h => h.id === habitId)
+        const habit = get().habits.find((h) => h.id === habitId)
         if (habit) {
-          updatedProfile = !isCompleted 
-            ? await addXP(habit.xp)
-            : await subtractXP(habit.xp)
+          updatedProfile = !isCompleted ? await addXP(habit.xp) : await subtractXP(habit.xp)
         }
       }
 
@@ -156,13 +167,15 @@ export const useHabitStore = create<HabitState>((set, get) => ({
       set((state) => {
         let newHabits = state.habits
         if (updatedHabitObj) {
-          newHabits = state.habits.map((item) => (item.id === updatedHabitObj.id ? updatedHabitObj : item))
+          newHabits = state.habits.map((item) =>
+            item.id === updatedHabitObj.id ? updatedHabitObj : item
+          )
         }
-        return { 
-          logs: { ...state.logs, [habitId]: updatedLog }, 
+        return {
+          logs: { ...state.logs, [habitId]: updatedLog },
           habits: newHabits,
           profile: updatedProfile,
-          error: null 
+          error: null,
         }
       })
     } catch (error) {
@@ -170,9 +183,9 @@ export const useHabitStore = create<HabitState>((set, get) => ({
       set((state) => ({
         logs: {
           ...state.logs,
-          [habitId]: logs[habitId]
+          [habitId]: logs[habitId],
         },
-        error: messageFor(error)
+        error: messageFor(error),
       }))
       throw error
     }

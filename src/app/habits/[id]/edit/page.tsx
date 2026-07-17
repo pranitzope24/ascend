@@ -12,7 +12,7 @@ export default function EditHabitPage() {
   const router = useRouter()
   const habits = useHabitStore((state) => state.habits)
   const loadHabits = useHabitStore((state) => state.loadHabits)
-  
+
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
@@ -30,10 +30,7 @@ export default function EditHabitPage() {
 
   return (
     <PageShell>
-      <PageHeader
-        description="Update the details of this habit."
-        title="Edit habit"
-      />
+      <PageHeader description="Update the details of this habit." title="Edit habit" />
       <div className="mt-8">
         <HabitForm habit={habit} />
       </div>

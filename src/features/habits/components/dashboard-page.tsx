@@ -30,7 +30,7 @@ export function DashboardPage() {
       <PageHeader
         actions={
           <>
-          <ModeToggle />
+            <ModeToggle />
           </>
         }
         description="Track your progress"
@@ -43,35 +43,37 @@ export function DashboardPage() {
       />
 
       {!isLoading && (
-        <DashboardHeader 
-          profile={profile} 
-          totalHabits={habits.length} 
-          completedHabits={habits.filter(h => logs[h.id]?.completed).length} 
+        <DashboardHeader
+          profile={profile}
+          totalHabits={habits.length}
+          completedHabits={habits.filter((h) => logs[h.id]?.completed).length}
         />
       )}
 
       <div className="mt-8 space-y-4">
-        <h3 className="font-semibold text-lg">Today&apos;s Checklist</h3>
-        
+        <h3 className="text-lg font-semibold">Today&apos;s Checklist</h3>
+
         {isLoading ? (
           <div className="space-y-3">
             {[0, 1, 2].map((item) => (
-              <div className="h-14 animate-pulse rounded-2xl bg-muted" key={item} />
+              <div className="bg-muted h-14 animate-pulse rounded-2xl" key={item} />
             ))}
           </div>
         ) : habits.length === 0 ? (
-          <p className="text-muted-foreground text-sm">No habits active today. Go to the Habits page to add some!</p>
+          <p className="text-muted-foreground text-sm">
+            No habits active today. Go to the Habits page to add some!
+          </p>
         ) : (
           <div className="space-y-3">
             {habits.map((habit) => {
               const isCompleted = logs[habit.id]?.completed ?? false
               return (
-                <div 
-                  key={habit.id} 
-                  className="flex items-center space-x-3 rounded-2xl border bg-card p-4 shadow-sm"
+                <div
+                  key={habit.id}
+                  className="bg-card flex items-center space-x-3 rounded-2xl border p-4 shadow-sm"
                 >
-                  <Checkbox 
-                    id={`habit-${habit.id}`} 
+                  <Checkbox
+                    id={`habit-${habit.id}`}
                     checked={isCompleted}
                     onCheckedChange={() => void toggleHabit(habit.id)}
                     className="h-5 w-5 rounded-md"
@@ -79,18 +81,19 @@ export function DashboardPage() {
                   <div className="flex flex-1 items-center gap-2 leading-none">
                     <label
                       htmlFor={`habit-${habit.id}`}
-                      className="text-sm font-medium leading-none cursor-pointer flex-1"
+                      className="flex-1 cursor-pointer text-sm leading-none font-medium"
                     >
                       {habit.title}
                     </label>
-                    <span 
-                      className="flex items-center gap-1 text-xs font-medium cursor-pointer rounded-full px-1.5 py-0.5 hover:bg-muted ml-auto shrink-0"
+                    <span
+                      className="hover:bg-muted ml-auto flex shrink-0 cursor-pointer items-center gap-1 rounded-full px-1.5 py-0.5 text-xs font-medium"
                       onClick={(e) => {
                         e.preventDefault()
                         setHeatmapHabit(habit)
                       }}
                     >
-                      <Flame className="size-3.5 text-orange-500 fill-orange-500" /> {habit.currentStreak}
+                      <Flame className="size-3.5 fill-orange-500 text-orange-500" />{" "}
+                      {habit.currentStreak}
                     </span>
                   </div>
                 </div>
@@ -99,8 +102,12 @@ export function DashboardPage() {
           </div>
         )}
       </div>
-      
-      <HabitHeatmapDialog habit={heatmapHabit} open={!!heatmapHabit} onOpenChange={(o) => !o && setHeatmapHabit(null)} />
+
+      <HabitHeatmapDialog
+        habit={heatmapHabit}
+        open={!!heatmapHabit}
+        onOpenChange={(o) => !o && setHeatmapHabit(null)}
+      />
     </PageShell>
   )
 }

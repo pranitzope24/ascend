@@ -1,10 +1,17 @@
-import { getThisWeekMuscleIntensities, getTodayMuscleIntensities } from "@/features/workouts/services/analytics-service"
-import { deleteSession as deleteSessionApi, getAllSessions, saveSession } from "@/features/workouts/services/workout-service"
+import {
+  getThisWeekMuscleIntensities,
+  getTodayMuscleIntensities,
+} from "@/features/workouts/services/analytics-service"
+import {
+  deleteSession as deleteSessionApi,
+  getAllSessions,
+  saveSession,
+} from "@/features/workouts/services/workout-service"
 import type {
   ExerciseSnapshot,
   WorkoutSession,
   WorkoutSessionFormValues,
-  WorkoutSet
+  WorkoutSet,
 } from "@/features/workouts/types"
 import { create } from "zustand"
 
@@ -29,9 +36,14 @@ interface WorkoutState {
   // Actions
   loadSessions: () => Promise<void>
   loadAnalytics: () => Promise<void>
-  
+
   // Active Session Actions
-  startWorkout: (templateId?: string, templateVersion?: number, initialExercises?: ExerciseSnapshot[], options?: { isHistorical?: boolean, startedAt?: Date, duration?: number }) => void
+  startWorkout: (
+    templateId?: string,
+    templateVersion?: number,
+    initialExercises?: ExerciseSnapshot[],
+    options?: { isHistorical?: boolean; startedAt?: Date; duration?: number }
+  ) => void
   updateWorkoutForm: (values: Partial<WorkoutSessionFormValues>) => void
   addExerciseToActive: (exercise: Omit<ExerciseSnapshot, "id">) => void
   removeExerciseFromActive: (exerciseId: string) => void
@@ -91,7 +103,11 @@ export const useWorkoutStore = create<WorkoutState>((set, get) => ({
       activeTemplateId: templateId || null,
       activeTemplateVersion: templateVersion || null,
       activeSessionForm: { name: "Workout Session - Gym", notes: "" },
-      activeExercises: initialExercises.map((ex, i) => ({ ...ex, id: crypto.randomUUID(), exerciseOrder: i })),
+      activeExercises: initialExercises.map((ex, i) => ({
+        ...ex,
+        id: crypto.randomUUID(),
+        exerciseOrder: i,
+      })),
       sessionStartTime: options?.startedAt || new Date(),
       isHistorical: options?.isHistorical || false,
       historicalDuration: options?.duration || null,
@@ -201,9 +217,9 @@ export const useWorkoutStore = create<WorkoutState>((set, get) => ({
         isHistorical: false,
         historicalDuration: null,
       }))
-      
+
       await get().loadAnalytics()
-      
+
       return session
     } catch (error) {
       set({ error: messageFor(error) })

@@ -19,14 +19,14 @@ export const useSettingsStore = create<SettingsState>((set) => ({
     set({ isLoading: true, error: null })
     try {
       const settings = await getSettings()
-      set({ 
-        settings, 
-        isLoading: false 
+      set({
+        settings,
+        isLoading: false,
       })
     } catch (error) {
-      set({ 
-        error: error instanceof Error ? error.message : "Failed to load settings", 
-        isLoading: false 
+      set({
+        error: error instanceof Error ? error.message : "Failed to load settings",
+        isLoading: false,
       })
     }
   },
@@ -39,5 +39,5 @@ export const useSettingsStore = create<SettingsState>((set) => ({
       set({ error: error instanceof Error ? error.message : "Failed to update settings" })
       throw error
     }
-  }
+  },
 }))

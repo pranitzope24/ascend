@@ -23,6 +23,6 @@ export default {
         token.sub = user.id
       }
       return token
-    }
-  }
+    },
+  },
 } satisfies NextAuthConfig

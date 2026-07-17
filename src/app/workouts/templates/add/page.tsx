@@ -4,10 +4,7 @@ import { WorkoutTemplateForm } from "@/features/workouts/components/workout-temp
 export default function AddWorkoutTemplatePage() {
   return (
     <PageShell>
-      <PageHeader
-        description="Create a reusable workout routine."
-        title="New Template"
-      />
+      <PageHeader description="Create a reusable workout routine." title="New Template" />
       <div className="mt-8">
         <WorkoutTemplateForm />
       </div>

@@ -28,7 +28,7 @@ export function SettingsDialog({ open, onOpenChange }: SettingsDialogProps) {
       }
     >
       <div className="space-y-6 py-4">
-        <p className="text-sm text-muted-foreground">More settings coming soon.</p>
+        <p className="text-muted-foreground text-sm">More settings coming soon.</p>
       </div>
     </ResponsiveDialog>
   )

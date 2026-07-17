@@ -57,7 +57,12 @@ export function ResponsiveDialog({
     return (
       <Dialog onOpenChange={onOpenChange} open={open}>
         {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
-        <DialogContent className={cn("flex max-h-[calc(100dvh-2rem)] flex-col gap-0 overflow-hidden md:max-w-xl", className)}>
+        <DialogContent
+          className={cn(
+            "flex max-h-[calc(100dvh-2rem)] flex-col gap-0 overflow-hidden md:max-w-xl",
+            className
+          )}
+        >
           <DialogHeader className="shrink-0 pr-8 pb-5">
             <DialogTitle>{title}</DialogTitle>
             {description && <DialogDescription>{description}</DialogDescription>}
@@ -79,10 +84,14 @@ export function ResponsiveDialog({
           <DrawerTitle>{title}</DrawerTitle>
           {description && <DrawerDescription>{description}</DrawerDescription>}
         </DrawerHeader>
-        <div className={cn("min-h-0 flex-1 overflow-y-auto overscroll-contain px-4", bodyClassName)}>
+        <div
+          className={cn("min-h-0 flex-1 overflow-y-auto overscroll-contain px-4", bodyClassName)}
+        >
           {children}
         </div>
-        {footer && <DrawerFooter className="shrink-0 border-t px-4 pt-4 pb-4">{footer}</DrawerFooter>}
+        {footer && (
+          <DrawerFooter className="shrink-0 border-t px-4 pt-4 pb-4">{footer}</DrawerFooter>
+        )}
       </DrawerContent>
     </Drawer>
   )

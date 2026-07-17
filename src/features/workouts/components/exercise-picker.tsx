@@ -43,35 +43,39 @@ export function ExercisePicker({ open, onOpenChange, onSelect }: ExercisePickerP
       title="Select Exercise"
       className="md:max-h-[80vh]"
     >
-      <div className="flex flex-col h-full space-y-4 pb-4">
-        <div className="relative p-1 -m-1 shrink-0">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input 
-            placeholder="Search exercises..." 
+      <div className="flex h-full flex-col space-y-4 pb-4">
+        <div className="relative -m-1 shrink-0 p-1">
+          <Search className="text-muted-foreground absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2" />
+          <Input
+            placeholder="Search exercises..."
             className="pl-9"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
         </div>
 
-        <div className="flex-1 overflow-y-auto space-y-2 mt-2">
+        <div className="mt-2 flex-1 space-y-2 overflow-y-auto">
           {isLoading ? (
-            <div className="flex justify-center p-8 text-muted-foreground">Loading exercises...</div>
+            <div className="text-muted-foreground flex justify-center p-8">
+              Loading exercises...
+            </div>
           ) : (
             <div className="space-y-1">
               {exercises.length === 0 ? (
-                <div className="text-center text-muted-foreground py-8">No exercises found.</div>
+                <div className="text-muted-foreground py-8 text-center">No exercises found.</div>
               ) : (
                 exercises.map((ex) => (
-                  <Button 
-                    key={ex.id} 
-                    variant="ghost" 
-                    className="w-full justify-start font-normal h-auto py-3"
+                  <Button
+                    key={ex.id}
+                    variant="ghost"
+                    className="h-auto w-full justify-start py-3 font-normal"
                     onClick={() => handleSelect(ex)}
                   >
                     <div className="flex flex-col items-start">
                       <span>{ex.name}</span>
-                      <span className="text-xs text-muted-foreground capitalize">{ex.category}</span>
+                      <span className="text-muted-foreground text-xs capitalize">
+                        {ex.category}
+                      </span>
                     </div>
                   </Button>
                 ))

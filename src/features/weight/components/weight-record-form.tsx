@@ -17,7 +17,9 @@ import { format, parseISO } from "date-fns"
 import { cn } from "@/lib/utils"
 
 const formSchema = z.object({
-  weight: z.coerce.number({ message: "Weight is required" }).min(1, "Weight must be greater than 0"),
+  weight: z.coerce
+    .number({ message: "Weight is required" })
+    .min(1, "Weight must be greater than 0"),
   recordedAt: z.date({ message: "Date is required" }),
   note: z.string().optional(),
 })
@@ -64,18 +66,20 @@ export function WeightRecordForm({ existingLog }: WeightRecordFormProps) {
 
   return (
     <form id="weight-form" onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-      {serverError && <div className="text-sm font-medium text-destructive">{serverError}</div>}
+      {serverError && <div className="text-destructive text-sm font-medium">{serverError}</div>}
       <Field>
         <FieldLabel>Weight (kg)</FieldLabel>
         <FieldContent>
-          <Input 
-            type="number" 
-            step="0.01" 
+          <Input
+            type="number"
+            step="0.01"
             placeholder="e.g. 72.40"
-            {...form.register("weight", { valueAsNumber: true })} 
+            {...form.register("weight", { valueAsNumber: true })}
           />
         </FieldContent>
-        {form.formState.errors.weight && <FieldError>{form.formState.errors.weight.message}</FieldError>}
+        {form.formState.errors.weight && (
+          <FieldError>{form.formState.errors.weight.message}</FieldError>
+        )}
       </Field>
 
       <Field>
@@ -98,7 +102,10 @@ export function WeightRecordForm({ existingLog }: WeightRecordFormProps) {
                     {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-auto p-0 scale-90 sm:scale-100 origin-top-left" align="start">
+                <PopoverContent
+                  className="w-auto origin-top-left scale-90 p-0 sm:scale-100"
+                  align="start"
+                >
                   <Calendar
                     mode="single"
                     selected={field.value}
@@ -114,22 +121,25 @@ export function WeightRecordForm({ existingLog }: WeightRecordFormProps) {
             )}
           />
         </FieldContent>
-        {form.formState.errors.recordedAt && <FieldError>{form.formState.errors.recordedAt.message}</FieldError>}
+        {form.formState.errors.recordedAt && (
+          <FieldError>{form.formState.errors.recordedAt.message}</FieldError>
+        )}
       </Field>
 
       <Field>
         <FieldLabel>Notes (Optional)</FieldLabel>
         <FieldContent>
-          <Textarea 
-            placeholder="How are you feeling?"
-            {...form.register("note")} 
-          />
+          <Textarea placeholder="How are you feeling?" {...form.register("note")} />
         </FieldContent>
-        {form.formState.errors.note && <FieldError>{form.formState.errors.note.message}</FieldError>}
+        {form.formState.errors.note && (
+          <FieldError>{form.formState.errors.note.message}</FieldError>
+        )}
       </Field>
-      
+
       <div className="flex w-full justify-end gap-2 pt-4">
-        <Button variant="outline" onClick={() => router.back()} type="button">Cancel</Button>
+        <Button variant="outline" onClick={() => router.back()} type="button">
+          Cancel
+        </Button>
         <Button type="submit" disabled={isSubmitting}>
           {isSubmitting ? "Saving..." : "Save"}
         </Button>

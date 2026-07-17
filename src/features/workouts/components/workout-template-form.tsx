@@ -2,7 +2,11 @@
 
 import { useForm, useFieldArray } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { WorkoutTemplateFormSchema, type WorkoutTemplateFormValues, type WorkoutTemplate } from "@/features/workouts/types"
+import {
+  WorkoutTemplateFormSchema,
+  type WorkoutTemplateFormValues,
+  type WorkoutTemplate,
+} from "@/features/workouts/types"
 import { useWorkoutTemplateStore } from "@/store/workout-template-store"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -61,43 +65,50 @@ export function WorkoutTemplateForm({ template, onSuccess }: WorkoutTemplateForm
           <FieldLabel>Name</FieldLabel>
           <FieldContent>
             <Input placeholder="e.g. Push Day" {...form.register("name")} />
-            {form.formState.errors.name && <FieldError>{form.formState.errors.name.message}</FieldError>}
+            {form.formState.errors.name && (
+              <FieldError>{form.formState.errors.name.message}</FieldError>
+            )}
           </FieldContent>
         </Field>
 
         <Field>
           <FieldLabel>Description (Optional)</FieldLabel>
           <FieldContent>
-            <Textarea placeholder="A brief description of this workout" {...form.register("description")} />
-            {form.formState.errors.description && <FieldError>{form.formState.errors.description.message}</FieldError>}
+            <Textarea
+              placeholder="A brief description of this workout"
+              {...form.register("description")}
+            />
+            {form.formState.errors.description && (
+              <FieldError>{form.formState.errors.description.message}</FieldError>
+            )}
           </FieldContent>
         </Field>
 
-        <div className="space-y-4 pt-4 border-t">
+        <div className="space-y-4 border-t pt-4">
           <div className="flex items-center justify-between">
-            <h3 className="font-semibold text-lg">Exercises</h3>
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              onClick={() => setPickerOpen(true)}
-            >
-              <Plus className="h-4 w-4 mr-2" />
+            <h3 className="text-lg font-semibold">Exercises</h3>
+            <Button type="button" variant="outline" size="sm" onClick={() => setPickerOpen(true)}>
+              <Plus className="mr-2 h-4 w-4" />
               Add Exercise
             </Button>
           </div>
 
           <div className="space-y-2">
             {fields.length === 0 ? (
-              <p className="text-muted-foreground text-sm py-4 text-center">No exercises added yet.</p>
+              <p className="text-muted-foreground py-4 text-center text-sm">
+                No exercises added yet.
+              </p>
             ) : (
               fields.map((field, index) => (
-                <div key={field.id} className="flex items-center gap-3 p-3 bg-muted/30 rounded-lg border">
-                  <div className="cursor-grab active:cursor-grabbing text-muted-foreground">
+                <div
+                  key={field.id}
+                  className="bg-muted/30 flex items-center gap-3 rounded-lg border p-3"
+                >
+                  <div className="text-muted-foreground cursor-grab active:cursor-grabbing">
                     <GripVertical className="h-5 w-5" />
                   </div>
                   <div className="flex-1">
-                    <p className="font-medium text-sm">{field.exerciseName}</p>
+                    <p className="text-sm font-medium">{field.exerciseName}</p>
                   </div>
                   <Button
                     type="button"
@@ -113,18 +124,20 @@ export function WorkoutTemplateForm({ template, onSuccess }: WorkoutTemplateForm
             )}
           </div>
         </div>
-        
+
         <div className="mt-8 flex justify-end gap-3 border-t pt-5">
-          <Button onClick={() => router.back()} type="button" variant="outline">Cancel</Button>
+          <Button onClick={() => router.back()} type="button" variant="outline">
+            Cancel
+          </Button>
           <Button type="submit" form="template-form">
             {isEditing ? "Save Changes" : "Create Template"}
           </Button>
         </div>
       </form>
 
-      <ExercisePicker 
-        open={pickerOpen} 
-        onOpenChange={setPickerOpen} 
+      <ExercisePicker
+        open={pickerOpen}
+        onOpenChange={setPickerOpen}
         onSelect={(exercise) => {
           append({
             id: crypto.randomUUID(),
@@ -132,7 +145,7 @@ export function WorkoutTemplateForm({ template, onSuccess }: WorkoutTemplateForm
             exerciseName: exercise.name,
             exerciseOrder: fields.length,
             muscles: exercise.muscles || [],
-            sets: []
+            sets: [],
           })
         }}
       />

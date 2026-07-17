@@ -12,7 +12,7 @@ export default function EditWorkoutTemplatePage() {
   const router = useRouter()
   const templates = useWorkoutTemplateStore((state) => state.templates)
   const loadTemplates = useWorkoutTemplateStore((state) => state.loadTemplates)
-  
+
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
@@ -30,10 +30,7 @@ export default function EditWorkoutTemplatePage() {
 
   return (
     <PageShell>
-      <PageHeader
-        description="Update your workout template details."
-        title="Edit Template"
-      />
+      <PageHeader description="Update your workout template details." title="Edit Template" />
       <div className="mt-8">
         <WorkoutTemplateForm template={template} />
       </div>

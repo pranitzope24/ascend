@@ -50,7 +50,7 @@ function normalizeScores(rawScores: Record<string, number>): { slug: string; int
     let intensity = Math.round(ratio * 5)
     if (intensity < 1) intensity = 1
     if (intensity > 5) intensity = 5
-    
+
     return { slug, intensity }
   })
 }
