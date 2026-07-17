@@ -23,13 +23,15 @@ interface WorkoutState {
   activeSessionForm: WorkoutSessionFormValues | null
   activeExercises: ExerciseSnapshot[]
   sessionStartTime: Date | null
+  isHistorical: boolean
+  historicalDuration: number | null
 
   // Actions
   loadSessions: () => Promise<void>
   loadAnalytics: () => Promise<void>
   
   // Active Session Actions
-  startWorkout: (templateId?: string, templateVersion?: number, initialExercises?: ExerciseSnapshot[]) => void
+  startWorkout: (templateId?: string, templateVersion?: number, initialExercises?: ExerciseSnapshot[], options?: { isHistorical?: boolean, startedAt?: Date, duration?: number }) => void
   updateWorkoutForm: (values: Partial<WorkoutSessionFormValues>) => void
   addExerciseToActive: (exercise: Omit<ExerciseSnapshot, "id">) => void
   removeExerciseFromActive: (exerciseId: string) => void
@@ -58,6 +60,8 @@ export const useWorkoutStore = create<WorkoutState>((set, get) => ({
   activeSessionForm: null,
   activeExercises: [],
   sessionStartTime: null,
+  isHistorical: false,
+  historicalDuration: null,
 
   loadSessions: async () => {
     set({ isLoading: true, error: null })
@@ -88,7 +92,9 @@ export const useWorkoutStore = create<WorkoutState>((set, get) => ({
       activeTemplateVersion: templateVersion || null,
       activeSessionForm: { name: "Workout Session - Gym", notes: "" },
       activeExercises: initialExercises.map((ex, i) => ({ ...ex, id: crypto.randomUUID(), exerciseOrder: i })),
-      sessionStartTime: new Date(),
+      sessionStartTime: options?.startedAt || new Date(),
+      isHistorical: options?.isHistorical || false,
+      historicalDuration: options?.duration || null,
     })
   },
 
@@ -178,7 +184,9 @@ export const useWorkoutStore = create<WorkoutState>((set, get) => ({
         state.activeSessionForm,
         state.activeExercises,
         state.activeTemplateId || undefined,
-        state.activeTemplateVersion || undefined
+        state.activeTemplateVersion || undefined,
+        state.isHistorical ? state.sessionStartTime || undefined : undefined,
+        state.isHistorical ? state.historicalDuration || undefined : undefined
       )
 
       // Reset state and update sessions/analytics
@@ -190,6 +198,8 @@ export const useWorkoutStore = create<WorkoutState>((set, get) => ({
         activeSessionForm: null,
         activeExercises: [],
         sessionStartTime: null,
+        isHistorical: false,
+        historicalDuration: null,
       }))
       
       await get().loadAnalytics()
@@ -209,6 +219,8 @@ export const useWorkoutStore = create<WorkoutState>((set, get) => ({
       activeSessionForm: null,
       activeExercises: [],
       sessionStartTime: null,
+      isHistorical: false,
+      historicalDuration: null,
     })
   },
 

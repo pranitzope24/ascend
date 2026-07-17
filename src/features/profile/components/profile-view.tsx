@@ -16,14 +16,19 @@ export function ProfileView({ data }: { data: ProfileStats }) {
 
   return (
     <div className="flex-1 p-6 space-y-8 max-w-2xl mx-auto w-full">
-      {/* Header section */}
-      <div className="flex flex-col items-center space-y-4">
-        <div className="w-24 h-24 rounded-full bg-secondary flex items-center justify-center overflow-hidden">
-          {user.image ? (
-            <img src={user.image} alt={user.name || "User avatar"} className="w-full h-full object-cover" />
-          ) : (
-            <User className="w-12 h-12 text-muted-foreground" />
-          )}
+      {/* Header & Level section */}
+      <div className="flex flex-col items-center space-y-6 pb-2">
+        <div className="relative">
+          <div className="w-24 h-24 rounded-full bg-secondary flex items-center justify-center overflow-hidden ring-4 ring-background shadow-md">
+            {user.image ? (
+              <img src={user.image} alt={user.name || "User avatar"} className="w-full h-full object-cover" />
+            ) : (
+              <User className="w-12 h-12 text-muted-foreground" />
+            )}
+          </div>
+          <div className="absolute -bottom-2 -right-2 bg-primary text-primary-foreground w-10 h-10 rounded-full flex items-center justify-center border-4 border-background font-bold shadow-sm">
+            {profile.level}
+          </div>
         </div>
         <div className="text-center">
           <h2 className="text-2xl font-bold">{user.name || "Explorer"}</h2>
@@ -32,17 +37,30 @@ export function ProfileView({ data }: { data: ProfileStats }) {
       </div>
 
       {/* Progress section */}
-      <div className="space-y-2">
-        <div className="flex justify-between items-center text-sm font-medium px-1">
-          <div className="flex items-center gap-1.5 text-yellow-500">
-            <Star className="w-4 h-4 fill-current" />
-            <span>{profile.currentXP} / {profile.nextLevelXP} XP</span>
+      <div className="bg-card border rounded-2xl p-5 shadow-sm space-y-4">
+        <div className="flex justify-between items-end">
+          <div>
+            <p className="text-sm font-medium text-muted-foreground mb-1">Current Progress</p>
+            <div className="flex items-center gap-1.5 text-primary font-bold text-xl">
+              <Star className="w-5 h-5 fill-current" />
+              <span>{profile.currentXP} XP</span>
+            </div>
           </div>
-          <div className="flex items-center gap-1.5 text-amber-600 dark:text-amber-400">
-            <span>🪙 {profile.coins} Coins</span>
+          <div className="text-right">
+            <p className="text-sm font-medium text-amber-600 dark:text-amber-400 mb-1">Wealth</p>
+            <div className="flex items-center gap-1.5 font-bold text-lg justify-end">
+              <span>🪙 {profile.coins}</span>
+            </div>
           </div>
         </div>
-        <Progress value={(profile.currentXP / profile.nextLevelXP) * 100} className="h-3 bg-secondary" />
+        
+        <div className="space-y-1.5 pt-2">
+          <div className="flex justify-between text-xs font-medium text-muted-foreground">
+            <span>Level {profile.level}</span>
+            <span>100 XP to Level {profile.level + 1}</span>
+          </div>
+          <Progress value={(profile.currentXP / 100) * 100} className="h-3" />
+        </div>
       </div>
 
       {/* Health section */}

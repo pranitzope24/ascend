@@ -1,6 +1,6 @@
 "use client"
 
-import { ChevronLeft, ChevronRight, Flame, Loader2 } from "lucide-react"
+import { ChevronLeft, ChevronRight, Flame, Loader2, Pencil, X } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 
 import { PageHeader, PageShell } from "@/components/shared/page-shell"
@@ -11,6 +11,7 @@ import { getAllHabitLogs } from "@/features/habits/services/habit-service"
 import type { HabitLog } from "@/features/habits/types"
 import { cn } from "@/lib/utils"
 import { useHabitStore } from "@/store/habit-store"
+import { toggleHabitCompletion } from "@/features/habits/services/habit-service"
 
 type ViewMode = "weekly" | "monthly" | "yearly"
 
@@ -22,6 +23,7 @@ export function StreaksPage() {
   const [loading, setLoading] = useState(true)
   const [mode, setMode] = useState<ViewMode>("weekly")
   const [offsetCounter, setOffsetCounter] = useState(0)
+  const [isEditing, setIsEditing] = useState(false)
   
   // We'll use an array of refs for each habit's container to scroll them all
   const scrollRefs = useRef<(HTMLDivElement | null)[]>([])
@@ -53,6 +55,34 @@ export function StreaksPage() {
   const handleModeChange = (m: ViewMode) => {
     setMode(m)
     setOffsetCounter(0)
+    setIsEditing(false)
+  }
+
+  const handleToggle = async (habitId: string, date: string, isCompleted: boolean) => {
+    // Optimistic update
+    setLogsByHabit(prev => ({
+      ...prev,
+      [habitId]: {
+        ...prev[habitId],
+        [date]: !isCompleted
+      }
+    }))
+
+    try {
+      await toggleHabitCompletion(habitId, date, !isCompleted)
+      // Refresh habits to update streaks
+      await loadHabits()
+    } catch (err) {
+      console.error("Failed to toggle log in past", err)
+      // Revert on error
+      setLogsByHabit(prev => ({
+        ...prev,
+        [habitId]: {
+          ...prev[habitId],
+          [date]: isCompleted
+        }
+      }))
+    }
   }
 
   const weeksCount = mode === "yearly" ? 52 : mode === "monthly" ? 4 : 1
@@ -120,20 +150,33 @@ export function StreaksPage() {
           </div>
         }
         actions={
-          <div className="flex bg-muted p-1 rounded-lg">
-            {(["weekly", "monthly", "yearly"] as const).map((m) => (
-              <button
-                key={m}
-                type="button"
-                className={cn(
-                  "px-3 py-1 text-xs font-medium rounded-md capitalize transition-colors",
-                  mode === m ? "bg-background shadow-sm" : "text-muted-foreground hover:text-foreground"
-                )}
-                onClick={() => handleModeChange(m)}
+          <div className="flex items-center gap-2">
+            {mode === "weekly" && (
+              <Button
+                variant={isEditing ? "default" : "outline"}
+                size="sm"
+                className="h-7 px-2 text-xs rounded-md"
+                onClick={() => setIsEditing(!isEditing)}
               >
-                {m}
-              </button>
-            ))}
+                {isEditing ? <X className="size-3 mr-1" /> : <Pencil className="size-3 mr-1" />}
+                {isEditing ? "Done" : "Edit"}
+              </Button>
+            )}
+            <div className="flex bg-muted p-1 rounded-lg">
+              {(["weekly", "monthly", "yearly"] as const).map((m) => (
+                <button
+                  key={m}
+                  type="button"
+                  className={cn(
+                    "px-3 py-1 text-xs font-medium rounded-md capitalize transition-colors",
+                    mode === m ? "bg-background shadow-sm" : "text-muted-foreground hover:text-foreground"
+                  )}
+                  onClick={() => handleModeChange(m)}
+                >
+                  {m}
+                </button>
+              ))}
+            </div>
           </div>
         }
         description="Your streaks"
@@ -203,6 +246,8 @@ export function StreaksPage() {
                       weeks={weeks} 
                       logs={habitLogs} 
                       monthLabels={monthLabels} 
+                      isEditing={isEditing}
+                      onToggle={(date, isCompleted) => handleToggle(habit.id, date, isCompleted)}
                     />
                   </div>
                 </div>
