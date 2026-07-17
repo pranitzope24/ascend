@@ -7,11 +7,10 @@ import { PageHeader, PageShell } from "@/components/shared/page-shell"
 import { Button } from "@/components/ui/button"
 import { SidebarTrigger } from "@/components/ui/sidebar"
 import { HeatmapGrid } from "@/features/habits/components/heatmap-grid"
-import { getAllHabitLogs } from "@/features/habits/services/habit-service"
+import { getAllHabitLogs, toggleHabitCompletion } from "@/features/habits/services/habit-service"
 import type { HabitLog } from "@/features/habits/types"
 import { cn } from "@/lib/utils"
 import { useHabitStore } from "@/store/habit-store"
-import { toggleHabitCompletion } from "@/features/habits/services/habit-service"
 
 type ViewMode = "weekly" | "monthly" | "yearly"
 
@@ -155,11 +154,10 @@ export function StreaksPage() {
               <Button
                 variant={isEditing ? "default" : "outline"}
                 size="sm"
-                className="h-7 px-2 text-xs rounded-md"
+                className="h-7 px-2 text-xs"
                 onClick={() => setIsEditing(!isEditing)}
               >
                 {isEditing ? <X className="size-3 mr-1" /> : <Pencil className="size-3 mr-1" />}
-                {isEditing ? "Done" : "Edit"}
               </Button>
             )}
             <div className="flex bg-muted p-1 rounded-lg">

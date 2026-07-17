@@ -15,14 +15,10 @@ export default function LoginPage() {
       
       <div className="w-full max-w-[340px] flex flex-col gap-10 text-center relative z-10">
         <div className="flex flex-col items-center">
-          {/* <div className="mb-6 relative">
-            <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full scale-125" />
-            <img src="/ascend_light.png" alt="Ascend" className="h-24 w-24 rounded-[1.5rem] shadow-sm relative z-10 dark:hidden" />
-            <img src="/logo.svg" alt="Ascend" className="h-24 w-24 rounded-[1.5rem] shadow-sm relative z-10 hidden dark:block" />
-          </div> */}
+          
           
           <h1 className="text-4xl font-bold tracking-wide mb-3 flex items-center justify-center gap-3">
-            <CircleFadingArrowUp className="size-9" />
+            <CircleFadingArrowUp className="size-9" fill="#0071e3"/>
             Ascend
           </h1>
           <p className="text-sm font-semibold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60 mb-5">
