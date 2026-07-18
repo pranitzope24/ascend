@@ -17,7 +17,7 @@ export default function LoginPage() {
       <div className="relative z-10 flex w-full max-w-[340px] flex-col gap-10 text-center">
         <div className="flex flex-col items-center">
           <h1 className="mb-3 flex items-center justify-center gap-3 text-4xl font-bold tracking-wide">
-            <CircleFadingArrowUp className="size-9" fill="#0071e3" />
+            <CircleFadingArrowUp className="size-9" />
             Ascend
           </h1>
           <p className="from-primary to-primary/60 mb-5 bg-gradient-to-r bg-clip-text text-sm font-semibold text-transparent">
