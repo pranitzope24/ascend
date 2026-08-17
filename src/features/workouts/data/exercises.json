@@ -179,6 +179,31 @@
     ]
   },
   {
+    "id": "front-raises",
+    "name": "Front Raises",
+    "category": "Push",
+    "description": "A shoulder isolation exercise raising dumbbells in front of the body to emphasize the anterior deltoids.",
+    "equipment": "Dumbbell",
+    "difficulty": "Beginner",
+    "isCompound": false,
+    "isUnilateral": false,
+    "defaultRestSeconds": 60,
+    "muscles": [
+      {
+        "slug": "deltoids",
+        "contribution": 1.0
+      },
+      {
+        "slug": "trapezius",
+        "contribution": 0.2
+      },
+      {
+        "slug": "chest",
+        "contribution": 0.15
+      }
+    ]
+  },
+  {
     "id": "cable-fly",
     "name": "Cable Fly",
     "category": "Push",
@@ -297,6 +322,27 @@
       {
         "slug": "forearm",
         "contribution": 0.4
+      }
+    ]
+  },
+  {
+    "id": "dumbbell-wrist-curl",
+    "name": "Dumbbell Wrist Curl",
+    "category": "Pull",
+    "description": "A forearm isolation exercise using dumbbells to strengthen wrist flexion and build the anterior forearm muscles.",
+    "equipment": "Dumbbell",
+    "difficulty": "Beginner",
+    "isCompound": false,
+    "isUnilateral": false,
+    "defaultRestSeconds": 45,
+    "muscles": [
+      {
+        "slug": "forearm",
+        "contribution": 1.0
+      },
+      {
+        "slug": "hands",
+        "contribution": 0.25
       }
     ]
   },
