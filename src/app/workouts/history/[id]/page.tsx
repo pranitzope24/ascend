@@ -7,15 +7,19 @@ import { WorkoutDetails } from "@/features/workouts/components/workout-details"
 import { getSessionById } from "@/features/workouts/services/workout-service"
 import type { WorkoutSession } from "@/features/workouts/types"
 import { Button } from "@/components/ui/button"
+import { useWorkoutTemplateStore } from "@/store/workout-template-store"
+import { getSessionTemplateLabel } from "@/features/workouts/utils/session-label"
 
 export default function HistoryDetailsPage() {
   const params = useParams()
   const router = useRouter()
   const [session, setSession] = useState<WorkoutSession | null>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const { templates, loadTemplates } = useWorkoutTemplateStore()
 
   useEffect(() => {
     async function load() {
+      await loadTemplates()
       if (typeof params.id === "string") {
         const data = await getSessionById(params.id)
         if (data) {
@@ -25,7 +29,7 @@ export default function HistoryDetailsPage() {
       setIsLoading(false)
     }
     load()
-  }, [params.id])
+  }, [loadTemplates, params.id])
 
   if (isLoading) {
     return (
@@ -73,7 +77,10 @@ export default function HistoryDetailsPage() {
         }
       />
       <div className="mx-auto w-full max-w-2xl flex-1 p-4 pb-24">
-        <WorkoutDetails session={session} />
+        <WorkoutDetails
+          session={session}
+          templateLabel={getSessionTemplateLabel(session, templates)}
+        />
       </div>
     </PageShell>
   )

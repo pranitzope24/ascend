@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useWorkoutStore } from "@/store/workout-store"
+import { useWorkoutTemplateStore } from "@/store/workout-template-store"
 import { Button } from "@/components/ui/button"
 import { startOfDay, endOfDay, startOfWeek, endOfWeek } from "date-fns"
 import { useRouter } from "next/navigation"
@@ -10,6 +11,7 @@ import { WorkoutCard } from "./workout-card"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { computeIntensitiesForSessions } from "../utils/analytics"
+import { getSessionTemplateLabel } from "../utils/session-label"
 
 type ViewMode = "daily" | "weekly"
 
@@ -24,10 +26,12 @@ export function WorkoutDashboard() {
     activeSessionId,
     startWorkout,
   } = useWorkoutStore()
+  const { templates, loadTemplates } = useWorkoutTemplateStore()
 
   useEffect(() => {
     loadSessions()
-  }, [loadSessions])
+    loadTemplates()
+  }, [loadSessions, loadTemplates])
 
   const [mode, setMode] = useState<ViewMode>("weekly")
   const [offsetCounter, setOffsetCounter] = useState(0)
@@ -145,6 +149,7 @@ export function WorkoutDashboard() {
               <WorkoutCard
                 key={session.id}
                 session={session}
+                templateLabel={getSessionTemplateLabel(session, templates)}
                 onClick={() => router.push(`/workouts/history`)}
               />
             ))}

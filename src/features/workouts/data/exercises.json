@@ -29,6 +29,35 @@
     ]
   },
   {
+    "id": "arnold-press",
+    "name": "Arnold Press",
+    "category": "Push",
+    "description": "A shoulder press variation rotating the dumbbells during the lift to target all three heads of the deltoids.",
+    "equipment": "Dumbbell",
+    "difficulty": "Intermediate",
+    "isCompound": true,
+    "isUnilateral": false,
+    "defaultRestSeconds": 90,
+    "muscles": [
+      {
+        "slug": "deltoids",
+        "contribution": 1.0
+      },
+      {
+        "slug": "triceps",
+        "contribution": 0.5
+      },
+      {
+        "slug": "trapezius",
+        "contribution": 0.35
+      },
+      {
+        "slug": "chest",
+        "contribution": 0.15
+      }
+    ]
+  },
+  {
     "id": "incline-dumbbell-press",
     "name": "Incline Dumbbell Press",
     "category": "Push",
@@ -50,6 +79,31 @@
       {
         "slug": "triceps",
         "contribution": 0.4
+      }
+    ]
+  },
+  {
+    "id": "incline-bench-press",
+    "name": "Incline Bench Press",
+    "category": "Push",
+    "description": "A barbell press performed on an inclined bench to emphasize the upper chest and anterior shoulders.",
+    "equipment": "Barbell",
+    "difficulty": "Intermediate",
+    "isCompound": true,
+    "isUnilateral": false,
+    "defaultRestSeconds": 120,
+    "muscles": [
+      {
+        "slug": "chest",
+        "contribution": 1.0
+      },
+      {
+        "slug": "deltoids",
+        "contribution": 0.7
+      },
+      {
+        "slug": "triceps",
+        "contribution": 0.45
       }
     ]
   },
@@ -350,6 +404,31 @@
     ]
   },
   {
+    "id": "face-pull",
+    "name": "Face Pull",
+    "category": "Pull",
+    "description": "A cable pulling motion toward the face to build the rear deltoids, upper back, and rotator cuff muscles.",
+    "equipment": "Cable",
+    "difficulty": "Beginner",
+    "isCompound": true,
+    "isUnilateral": false,
+    "defaultRestSeconds": 60,
+    "muscles": [
+      {
+        "slug": "deltoids",
+        "contribution": 1.0
+      },
+      {
+        "slug": "trapezius",
+        "contribution": 0.8
+      },
+      {
+        "slug": "upper-back",
+        "contribution": 0.7
+      }
+    ]
+  },
+  {
     "id": "deadlift",
     "name": "Deadlift",
     "category": "Pull",
@@ -391,6 +470,44 @@
       {
         "slug": "abs",
         "contribution": 0.25
+      }
+    ]
+  },
+  {
+    "id": "crunches",
+    "name": "Crunches",
+    "category": "Core",
+    "description": "An abdominal curl flexing the upper spine to isolate and strengthen the rectus abdominis.",
+    "equipment": "Bodyweight",
+    "difficulty": "Beginner",
+    "isCompound": false,
+    "isUnilateral": false,
+    "defaultRestSeconds": 45,
+    "muscles": [
+      {
+        "slug": "abs",
+        "contribution": 1.0
+      }
+    ]
+  },
+  {
+    "id": "russian-twists",
+    "name": "Russian Twists",
+    "category": "Core",
+    "description": "A seated rotational movement designed to build dynamic core stability and strengthen the obliques.",
+    "equipment": "Bodyweight",
+    "difficulty": "Beginner",
+    "isCompound": true,
+    "isUnilateral": false,
+    "defaultRestSeconds": 45,
+    "muscles": [
+      {
+        "slug": "obliques",
+        "contribution": 1.0
+      },
+      {
+        "slug": "abs",
+        "contribution": 0.7
       }
     ]
   },

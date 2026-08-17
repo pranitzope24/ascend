@@ -4,13 +4,17 @@ import { format } from "date-fns"
 
 interface WorkoutDetailsProps {
   session: WorkoutSession
+  templateLabel?: string
 }
 
-export function WorkoutDetails({ session }: WorkoutDetailsProps) {
+export function WorkoutDetails({ session, templateLabel }: WorkoutDetailsProps) {
   return (
     <div className="space-y-6">
       <div className="space-y-1 py-4 text-center">
-        <h2 className="text-2xl font-bold">{session.name}</h2>
+        <h2 className="text-2xl font-bold">{templateLabel || session.name}</h2>
+        {templateLabel && session.name !== templateLabel && session.name !== "Workout Session - Gym" && (
+          <p className="text-muted-foreground text-sm">{session.name}</p>
+        )}
         <p className="text-muted-foreground">
           {format(session.startedAt, "EEEE, MMMM d, yyyy 'at' h:mm a")}
         </p>

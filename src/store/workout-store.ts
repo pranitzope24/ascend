@@ -42,7 +42,7 @@ interface WorkoutState {
     templateId?: string,
     templateVersion?: number,
     initialExercises?: ExerciseSnapshot[],
-    options?: { isHistorical?: boolean; startedAt?: Date; duration?: number }
+    options?: { isHistorical?: boolean; startedAt?: Date; duration?: number; name?: string }
   ) => void
   updateWorkoutForm: (values: Partial<WorkoutSessionFormValues>) => void
   addExerciseToActive: (exercise: Omit<ExerciseSnapshot, "id">) => void
@@ -102,7 +102,7 @@ export const useWorkoutStore = create<WorkoutState>((set, get) => ({
       activeSessionId: crypto.randomUUID(),
       activeTemplateId: templateId || null,
       activeTemplateVersion: templateVersion || null,
-      activeSessionForm: { name: "Workout Session - Gym", notes: "" },
+      activeSessionForm: { name: options?.name || "Custom", notes: "" },
       activeExercises: initialExercises.map((ex, i) => ({
         ...ex,
         id: crypto.randomUUID(),

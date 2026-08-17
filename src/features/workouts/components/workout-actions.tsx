@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { useWorkoutStore } from "@/store/workout-store"
 import { useWorkoutTemplateStore } from "@/store/workout-template-store"
 import { Button } from "@/components/ui/button"
-import { History, Plus, Calendar } from "lucide-react"
+import { Calendar, History, LayoutTemplate, Plus } from "lucide-react"
 import { useRouter } from "next/navigation"
 import type { WorkoutTemplate } from "@/features/workouts/types"
 import {
@@ -50,7 +50,7 @@ export function WorkoutActions() {
       sets: ex.sets || [],
     }))
 
-    startWorkout(template.id, template.version, initialExercises)
+    startWorkout(template.id, template.version, initialExercises, { name: template.name })
     router.push("/workouts/log")
   }
 
@@ -72,6 +72,10 @@ export function WorkoutActions() {
         <Button variant="outline" size="sm" onClick={() => router.push("/workouts/history")}>
           <History className="h-4 w-4 sm:mr-2" />
           <span className="hidden sm:inline">History</span>
+        </Button>
+        <Button variant="outline" size="sm" onClick={() => router.push("/workouts/templates")}>
+          <LayoutTemplate className="h-4 w-4 sm:mr-2" />
+          <span className="hidden sm:inline">Templates</span>
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -102,6 +106,14 @@ export function WorkoutActions() {
               <DropdownMenuItem onClick={() => router.push("/workouts/templates/add")}>
                 Create a template...
               </DropdownMenuItem>
+            )}
+            {templates.length > 0 && (
+              <>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => router.push("/workouts/templates/add")}>
+                  <Plus className="mr-2 size-4" /> New Template
+                </DropdownMenuItem>
+              </>
             )}
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleStartWorkout}>

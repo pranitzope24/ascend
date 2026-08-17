@@ -13,9 +13,10 @@ import { MoreVertical, Trash } from "lucide-react"
 interface WorkoutCardProps {
   session: WorkoutSession
   onClick?: (session: WorkoutSession) => void
+  templateLabel?: string
 }
 
-export function WorkoutCard({ session, onClick }: WorkoutCardProps) {
+export function WorkoutCard({ session, onClick, templateLabel }: WorkoutCardProps) {
   const { deleteSession } = useWorkoutStore()
 
   const handleDelete = async (e: React.MouseEvent) => {
@@ -30,8 +31,11 @@ export function WorkoutCard({ session, onClick }: WorkoutCardProps) {
       className={`bg-card text-card-foreground ring-foreground/10 flex w-full flex-row items-center justify-between rounded-2xl border p-4 ring-1 ${onClick ? "hover:bg-muted/50 cursor-pointer transition-colors" : ""}`}
       onClick={() => onClick?.(session)}
     >
-      <div className="flex flex-col gap-1 text-left">
-        <span className="text-sm font-medium">{session.name}</span>
+      <div className="min-w-0 flex flex-col gap-1 text-left">
+        <span className="truncate text-sm font-medium">{templateLabel || session.name}</span>
+        {templateLabel && session.name !== templateLabel && session.name !== "Workout Session - Gym" && (
+          <span className="text-muted-foreground truncate text-xs">{session.name}</span>
+        )}
         <span className="text-muted-foreground text-xs">
           {format(session.startedAt, "MMM d, h:mm a")}
           {session.duration ? ` • ${Math.round(session.duration / 60)} min` : ""}

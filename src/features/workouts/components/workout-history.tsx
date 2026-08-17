@@ -2,17 +2,21 @@
 
 import { useEffect } from "react"
 import { useWorkoutStore } from "@/store/workout-store"
+import { useWorkoutTemplateStore } from "@/store/workout-template-store"
 import { WorkoutCard } from "./workout-card"
 import { format } from "date-fns"
 import { useRouter } from "next/navigation"
+import { getSessionTemplateLabel } from "../utils/session-label"
 
 export function WorkoutHistory() {
   const { sessions, loadSessions, isLoading } = useWorkoutStore()
+  const { templates, loadTemplates } = useWorkoutTemplateStore()
   const router = useRouter()
 
   useEffect(() => {
     loadSessions()
-  }, [loadSessions])
+    loadTemplates()
+  }, [loadSessions, loadTemplates])
 
   if (isLoading) {
     return <div className="text-muted-foreground p-8 text-center">Loading history...</div>
@@ -46,6 +50,7 @@ export function WorkoutHistory() {
               <WorkoutCard
                 key={session.id}
                 session={session}
+                templateLabel={getSessionTemplateLabel(session, templates)}
                 onClick={() => router.push(`/workouts/history/${session.id}`)}
               />
             ))}
