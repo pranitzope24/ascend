@@ -11,6 +11,8 @@ import {
   Star,
   ChevronRight,
   Timer,
+  Ruler,
+  Utensils,
 } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
@@ -89,7 +91,7 @@ export function ProfileView({ data }: { data: ProfileStats }) {
       {/* Health section */}
       <div className="space-y-4">
         <h3 className="px-1 text-lg font-semibold tracking-tight">Health</h3>
-        <div className="bg-card overflow-hidden rounded-xl border">
+        <div className="bg-card divide-y overflow-hidden rounded-xl border">
           <Link
             href="/profile/weight"
             className="hover:bg-muted/50 flex items-center justify-between p-4 transition-colors"
@@ -97,6 +99,26 @@ export function ProfileView({ data }: { data: ProfileStats }) {
             <div className="flex items-center gap-3">
               <Scale className="text-muted-foreground h-5 w-5" />
               <span className="font-medium">Weight Tracker</span>
+            </div>
+            <ChevronRight className="text-muted-foreground h-5 w-5" />
+          </Link>
+          <Link
+            href="/profile/measurements"
+            className="flex items-center justify-between border-b p-4 last:border-0 hover:bg-muted/50"
+          >
+            <div className="flex items-center gap-3">
+              <Ruler className="text-muted-foreground h-5 w-5" />
+              <span>Body Measurements</span>
+            </div>
+            <ChevronRight className="text-muted-foreground h-5 w-5" />
+          </Link>
+          <Link
+            href="/profile/macros"
+            className="flex items-center justify-between p-4 hover:bg-muted/50"
+          >
+            <div className="flex items-center gap-3">
+              <Utensils className="text-muted-foreground h-5 w-5" />
+              <span>Macro Tracker</span>
             </div>
             <ChevronRight className="text-muted-foreground h-5 w-5" />
           </Link>

@@ -9,6 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { SidebarTrigger } from "@/components/ui/sidebar"
 import { DashboardHeader } from "@/features/habits/components/dashboard-header"
 import { HabitHeatmapDialog } from "@/features/habits/components/habit-heatmap-dialog"
+import { DashboardMacroCard } from "@/features/macros/components/dashboard-macro-card"
 import type { Habit } from "@/features/habits/types"
 import { useHabitStore } from "@/store/habit-store"
 
@@ -49,6 +50,10 @@ export function DashboardPage() {
           completedHabits={habits.filter((h) => logs[h.id]?.completed).length}
         />
       )}
+
+      <div className="mt-8">
+        <DashboardMacroCard />
+      </div>
 
       <div className="mt-8 space-y-4">
         <h3 className="text-lg font-semibold">Today&apos;s Checklist</h3>
